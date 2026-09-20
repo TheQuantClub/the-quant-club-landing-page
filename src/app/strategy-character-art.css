@@ -1,0 +1,40 @@
+/* Kinetic research prints: flat, saturated forms on an ink canvas. */
+.sc-art{position:relative;width:100%;aspect-ratio:520/350;overflow:hidden;isolation:isolate;contain:layout paint;background:#071b2d;border-radius:4px}
+.sc-art:after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0px,transparent 3px,#b9e6ff04 3px,#b9e6ff04 4px);opacity:.5}
+.sc-art--dark{background:#091f33}
+.sc-art>svg{display:block;width:100%;height:100%;overflow:visible}
+.sc-art .sc-mosaic-cell{overflow:hidden}
+.sc-art .sc-fine{fill:none;stroke:#7eafcc;stroke-width:.8;opacity:.35}
+.sc-anchor-echo{animation:sc-anchor-echo 6s ease-in-out infinite;transform-origin:265px 170px}
+.sc-anchor-scan{animation:sc-anchor-scan 4.6s cubic-bezier(.4,0,.2,1) infinite}
+.sc-anchor-dot{animation:sc-anchor-dot 4.6s ease-in-out infinite}
+.sc-fan-blade{transform-origin:0 0;animation:sc-fan-open 5.5s cubic-bezier(.45,0,.2,1) infinite;animation-delay:calc(var(--sc-i)*-.1s)}
+.sc-selection-flow{stroke-dasharray:12 88;animation:sc-flow 3.3s linear infinite;animation-delay:calc(var(--sc-i)*-.17s)}
+.sc-selected-strand{animation:sc-strand-arrive 3.3s ease-in-out infinite;animation-delay:calc(var(--sc-i)*-.22s)}
+.sc-weave-light{stroke-dasharray:9 91;animation:sc-flow 4.8s linear infinite;animation-delay:calc(var(--sc-i)*-1.1s)}
+.sc-mosaic-tile{transform-origin:34px 34px;animation:sc-mosaic-turn 9s cubic-bezier(.65,0,.35,1) infinite;animation-delay:calc(var(--sc-i)*-.14s)}
+.sc-sector-window,.sc-sector-cursor{animation:sc-sector-step 8s cubic-bezier(.7,0,.25,1) infinite}
+.sc-art[data-running="false"] *,.sc-art[data-paused="true"] *{animation-play-state:paused!important}
+@keyframes sc-anchor-echo{0%,100%{transform:translateX(0)}50%{transform:translateX(-13px)}}
+@keyframes sc-anchor-scan{0%,12%{transform:translateX(-85px) rotate(22deg)}65%,100%{transform:translateX(220px) rotate(22deg)}}
+@keyframes sc-anchor-dot{0%,100%{transform:translateY(-68px)}50%{transform:translateY(68px)}}
+@keyframes sc-fan-open{0%,100%{transform:rotate(-10deg) scaleY(.92)}50%{transform:rotate(7deg) scaleY(1.02)}}
+@keyframes sc-flow{from{stroke-dashoffset:100}to{stroke-dashoffset:-100}}
+@keyframes sc-strand-arrive{0%,100%{opacity:.45;transform:translateX(-8px)}40%,72%{opacity:1;transform:translateX(0)}}
+@keyframes sc-mosaic-turn{0%,12%{transform:rotate(0)}25%,37%{transform:rotate(90deg)}50%,62%{transform:rotate(180deg)}75%,87%{transform:rotate(270deg)}100%{transform:rotate(360deg)}}
+@keyframes sc-sector-step{0%,16%,100%{transform:translateX(0)}25%,41%{transform:translateX(94px)}50%,66%{transform:translateX(188px)}75%,91%{transform:translateX(282px)}}
+/* Full-bleed art on collection cards; reserve separate lines for the labels. */
+.reference-theme .v-strategy-art{height:252px;background:#071b2d;border-color:#173750}
+.reference-theme .v-strategy-art>.sc-art{height:252px;border-radius:0}
+.reference-theme .v-strategy-art>span{color:#9bb9d0;letter-spacing:.12em;font-size:8px}
+.reference-theme .v-strategy-art>.v-strategy-theme{color:#bdd8e8;font-size:10px;letter-spacing:.02em}
+.reference-theme .v-strategy-card:hover .v-strategy-art{background:#071b2d}
+.reference-theme .v-strategy-card:hover .sc-art svg{filter:brightness(1.08)}
+.reference-theme .v-detail-art{display:block;height:auto;min-height:0;align-self:center;padding:10px 10px 46px;background:#071b2d;border:1px solid #173750;border-radius:6px;overflow:hidden}
+.reference-theme .v-detail-art>.sc-art{height:auto;aspect-ratio:520/350;border-radius:0}
+.reference-theme .v-detail-art>span{position:absolute;bottom:18px;left:22px;transform:none;white-space:normal;max-width:calc(100% - 120px);color:#a2c2d7;font-size:10px}
+.reference-theme .v-detail-art>.v-detail-motion{bottom:10px;right:14px;background:#102d44;border-color:#285171;color:#b8d9ea}
+.q-panel-art-slot>.sc-art{border:1px solid #29445d;border-radius:5px}
+@media(max-width:960px){.q-panel-art-slot{margin-top:22px;min-height:0}.q-panel-art-slot>.sc-art{max-width:390px}.reference-theme .v-detail-art{margin-top:24px;max-width:550px;width:100%}}
+@media(max-width:650px){.reference-theme .v-strategy-art,.reference-theme .v-strategy-art>.sc-art{height:238px}.reference-theme .v-detail-art{display:block;margin-top:25px;padding-bottom:48px}.reference-theme .v-detail-art>.sc-art{height:auto;aspect-ratio:520/350}.reference-theme .v-detail-art>span{font-size:8px;left:15px;max-width:65%}.q-panel-art-slot{min-height:0;margin-top:22px}.q-panel-art-slot>.sc-art{max-width:100%}}
+@media(prefers-reduced-motion:reduce){.sc-art *{animation:none!important;transition:none!important}}
