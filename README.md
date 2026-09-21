@@ -4,7 +4,7 @@ A standalone Next.js marketing website for investment advisers, mutual fund dist
 
 ## Public experience
 
-- `/`: the chosen headline, rotating abstract globe, three flowing blue lines, six capabilities on a moving semicircle, compact problem/response comparisons, four audience workflows, The Quant Bytes, FAQs and walkthrough links.
+- `/`: the chosen headline, rotating abstract globe and three flowing blue lines on a navy/blue/cyan gradient; six capabilities on a moving semicircle, compact problem/response comparisons, four audience workflows, The Quant Bytes, FAQs and walkthrough links.
 - `/platform`: Model portfolios, Analysis engine, Implementation, Maintenance, Your brand and Client communication. Each capability supports stable direct hash links and keyboard navigation.
 - `/strategies` and `/strategies/[slug]`: an interactive strategy gallery and distinct animated sculptures, with short public introductions. Model information stays within authorised SaaS access.
 - `/institutions`: four distinct workflows for advisers, mutual fund distributors, wealth teams and investment institutions.
@@ -67,13 +67,12 @@ Development and production servers use port 3001 by default. Local browser QA an
 - `src/components/marketing-site.tsx`: shared shell, secondary pages and enquiry flow.
 - `src/components/strategy-home.tsx`: homepage and shared closing section.
 - `src/components/business-orbit.tsx`: a branded semicircle that moves to each capability, then holds for reading; manual selection, next/previous controls, offscreen pausing and reduced-motion support.
-- `src/components/brand-backdrop.tsx`: page-specific background scenes, with shared visibility handling and a background-motion control that persists across page navigation.
-- `src/components/page-brand-art.tsx`: distinct connected panes, prism forms, firm networks, editorial sheets, a Q sculpture and converging paths for the secondary pages.
+- `src/components/brand-backdrop.tsx`: recurring Q marks and three flowing blue lines, with a shared background-motion control that persists across page navigation.
 - `src/components/audience-section.tsx`: four prominent audience choices and one focused workflow panel, including keyboard selection.
 - `src/components/quant-globe.tsx` and `flow-ribbons.tsx`: decorative globe and three blue lines with shared pause control, offscreen pausing and reduced-motion support.
-- `src/components/research-problems.tsx`: six challenge/response pairs with individual colour accents. Topic selection automatically plays the sorting transition when the response illustration is visible; Replay repeats it, and reduced-motion preferences show the finished arrangement.
+- `src/components/research-problems.tsx`: six challenge/response pairs in the original brand palette. Selection and Replay show the sorting transition when the response illustration enters view, with static reduced-motion states.
 - `src/lib/business-content.ts`: offering and audience copy.
 - `src/lib/public-content.ts`: strategy overviews, educational drafts and FAQs.
-- `src/app/brand-refresh.css`, `marketing-refresh.css`, `research-problems.css`, `kinetic-refresh.css`, `audience-section.css`, `brand-continuity.css`, `page-brand-art.css`, `page-colour.css`, `home-colour.css` and `strategy-character-art.css`: current styling, alongside base `globals.css`.
+- `src/app/brand-refresh.css`, `marketing-refresh.css`, `research-problems.css`, `kinetic-refresh.css`, `audience-section.css`, `brand-continuity.css`, `hero-gradient.css` and `strategy-character-art.css`: current styling, alongside base `globals.css`.
 
 Earlier design components and styles remain as inactive source references. They are not imported by the active public-page tree. Existing strategy/article URLs are retained for compatibility.

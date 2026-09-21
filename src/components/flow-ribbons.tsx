@@ -9,9 +9,10 @@ const paths = [
 ];
 
 /** Three decorative blue currents, without market or portfolio data. */
-export function FlowRibbons({ paused = false }: { paused?: boolean }) {
+export function FlowRibbons({ paused = false, tone = "light" }: { paused?: boolean; tone?: "light" | "dark" }) {
   const id = useId().replaceAll(":", "");
   const root = useRef<HTMLDivElement>(null);
+  const dark = tone === "dark";
   useEffect(() => {
     const element = root.current;
     if (!element) return;
@@ -21,8 +22,8 @@ export function FlowRibbons({ paused = false }: { paused?: boolean }) {
     observer.observe(element); document.addEventListener("visibilitychange", update);
     return () => { observer.disconnect(); document.removeEventListener("visibilitychange", update); };
   }, []);
-  return <div ref={root} className="q-flow-ribbons" data-paused={paused} aria-hidden="true"><svg viewBox="0 0 1440 840" preserveAspectRatio="none"><defs>
-    <linearGradient id={`${id}-blue`} x1="0" y1="0" x2="1" y2="0"><stop stopColor="#49bce9" stopOpacity=".12" /><stop offset=".42" stopColor="#2586ed" stopOpacity=".28" /><stop offset=".73" stopColor="#2165e8" stopOpacity=".86" /><stop offset="1" stopColor="#48adea" stopOpacity=".3" /></linearGradient>
-    <linearGradient id={`${id}-light`} x1="0" y1="0" x2="1" y2="0"><stop stopColor="#55c9fa" stopOpacity="0" /><stop offset=".5" stopColor="#1872f4" /><stop offset="1" stopColor="#63cdff" stopOpacity="0" /></linearGradient>
-  </defs><g className="q-flow-sweep">{paths.map((path, index) => <g key={path}><path d={path} fill="none" stroke={`url(#${id}-blue)`} strokeWidth="14" opacity=".06" /><path d={path} fill="none" stroke={`url(#${id}-blue)`} strokeWidth={2.3 - index * .35} /><path d={path} className="q-flow-light" fill="none" pathLength="1000" stroke={`url(#${id}-light)`} strokeWidth="3" strokeDasharray="90 910" style={{ animationDelay: `${index * -3.5}s` }} /></g>)}</g></svg></div>;
+  return <div ref={root} className="q-flow-ribbons" data-paused={paused} data-tone={tone} aria-hidden="true"><svg viewBox="0 0 1440 840" preserveAspectRatio="none"><defs>
+    <linearGradient id={`${id}-blue`} x1="0" y1="0" x2="1" y2="0"><stop stopColor={dark ? "#06b6d4" : "#49bce9"} stopOpacity={dark ? ".22" : ".12"} /><stop offset=".42" stopColor={dark ? "#2563eb" : "#2586ed"} stopOpacity={dark ? ".5" : ".28"} /><stop offset=".73" stopColor={dark ? "#06b6d4" : "#2165e8"} stopOpacity={dark ? ".9" : ".86"} /><stop offset="1" stopColor={dark ? "#ffffff" : "#48adea"} stopOpacity={dark ? ".4" : ".3"} /></linearGradient>
+    <linearGradient id={`${id}-light`} x1="0" y1="0" x2="1" y2="0"><stop stopColor={dark ? "#06b6d4" : "#55c9fa"} stopOpacity="0" /><stop offset=".5" stopColor={dark ? "#ffffff" : "#1872f4"} /><stop offset="1" stopColor={dark ? "#06b6d4" : "#63cdff"} stopOpacity="0" /></linearGradient>
+  </defs><g className="q-flow-sweep">{paths.map((path, index) => <g key={path}><path d={path} fill="none" stroke={`url(#${id}-blue)`} strokeWidth="14" opacity={dark ? ".1" : ".06"} /><path d={path} fill="none" stroke={`url(#${id}-blue)`} strokeWidth={2.3 - index * .35} /><path d={path} className="q-flow-light" fill="none" pathLength="1000" stroke={`url(#${id}-light)`} strokeWidth="3" strokeDasharray="90 910" style={{ animationDelay: `${index * -3.5}s` }} /></g>)}</g></svg></div>;
 }

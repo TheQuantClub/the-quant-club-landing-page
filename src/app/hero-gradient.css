@@ -1,0 +1,27 @@
+/* The approved navy, blue and cyan gradient carries the whole opening section. */
+.tqc-hero--gradient,.tqc-home .tqc-closing{
+  background:radial-gradient(ellipse at 87% 24%,#3458ad88,transparent 49%),radial-gradient(ellipse at 67% 100%,#127a8288,transparent 55%),#102c49;
+  color:#fff;
+}
+.tqc-hero--gradient{border-bottom-color:#2a526b}
+.tqc-hero--gradient h1{color:#fff}
+.tqc-hero--gradient h1>span+span{color:#a9dcff}
+.tqc-hero--gradient .tqc-hero-story>.tqc-eyebrow{color:#a6c9ec}
+.tqc-hero--gradient .tqc-hero-story>.tqc-eyebrow>span{background:#70d2ed;box-shadow:0 0 0 4px #70d2ed12}
+.tqc-hero--gradient .tqc-hero-description{color:#c3d7e6}
+.tqc-hero--gradient .tqc-hero-actions>.tqc-button{background:#fff;border-color:#fff;color:#12364f;box-shadow:0 5px 18px #06172919}
+.tqc-hero--gradient .tqc-hero-actions>.tqc-button:hover{background:#e6f4ff;border-color:#e6f4ff}
+.tqc-hero--gradient .tqc-hero-actions>.tqc-text-link{color:#d3e9fb}
+.tqc-hero--gradient .tqc-hero-actions>.tqc-text-link:hover{color:#fff}
+.tqc-hero--gradient .kg-globe-halo{background:radial-gradient(ellipse,#47c3ed09,#2d84d614 55%,transparent 73%)}
+.tqc-hero--gradient .kg-cross:before,.tqc-hero--gradient .kg-cross:after{background:#83caec}
+.tqc-hero--gradient .tqc-world-caption{color:#a7cbe4}
+.tqc-hero--gradient .tqc-world-caption>button{color:#c9e5f7;border-color:#739ec65c;background:#10344e94}
+.tqc-hero--gradient .tqc-world-caption>button:hover{border-color:#9dcaec;background:#194862}
+.tqc-hero--gradient .tqc-hero-baseline{border-top-color:#87c4e12e}
+.tqc-hero--gradient .tqc-scroll-cue{color:#b2d1e6}
+.tqc-hero--gradient .tqc-scroll-cue:hover{color:#fff}
+.tqc-hero--gradient .tqc-hero-baseline>p{color:#b2cde0}
+.tqc-hero--gradient .tqc-hero-baseline strong{color:#e2f3ff}
+.tqc-hero--gradient a:focus-visible,.tqc-hero--gradient button:focus-visible{outline:2px solid #9bdfff;outline-offset:5px}
+@media(min-width:701px) and (max-width:1100px){.tqc-hero--gradient .tqc-world-caption{right:20%;gap:12px}}

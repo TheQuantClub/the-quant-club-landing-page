@@ -7,7 +7,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, Check, ChevronRight, Cli
 import { QuantLogo } from "./logo";
 import { StrategyHome, StrategyCTA } from "./strategy-home";
 import { StrategyCharacterArt } from "./strategy-character-art";
-import { BrandBackdrop, BrandMotionControl, BrandSceneProvider } from "./brand-backdrop";
+import { BrandBackdrop, BrandMotionControl } from "./brand-backdrop";
 import { articles, commonQuestions, publicStrategies, type Article } from "@/lib/public-content";
 import { strategyStories } from "@/lib/strategy-story";
 
@@ -33,13 +33,13 @@ function Brand() {
   return <span className="mk-brand"><QuantLogo compact /><span>The Quant Club</span></span>;
 }
 
-function SiteShell({ children, scene }: { children: ReactNode; scene: Exclude<SiteView, "strategy" | "article"> }) {
+function SiteShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const loginDialog = useRef<HTMLDialogElement>(null);
   function memberAction() { setMenuOpen(false); loginDialog.current?.showModal(); }
 
-  return <div className="mk-site" data-scene={scene}>
+  return <div className="mk-site">
     <a className="skip-link" href="#content">Skip to content</a>
     <header className="mk-header">
       <div className="tqc-container mk-header-inner">
@@ -278,6 +278,5 @@ function Walkthrough() {
 }
 
 export function MarketingPage({ page, slug }: { page: SiteView; slug?: string }) {
-  const scene = page === "strategy" ? "strategies" : page === "article" ? "research" : page;
-  return <BrandSceneProvider scene={scene}><SiteShell scene={scene}>{page === "home" ? <StrategyHome /> : page === "strategies" ? <Strategies /> : page === "strategy" ? <StrategyDetail slug={slug!} /> : page === "platform" ? <Platform /> : page === "research" ? <Research /> : page === "article" ? <ArticleDetail slug={slug!} /> : page === "about" ? <About /> : page === "institutions" ? <Institutions /> : <Walkthrough />}</SiteShell></BrandSceneProvider>;
+  return <SiteShell>{page === "home" ? <StrategyHome /> : page === "strategies" ? <Strategies /> : page === "strategy" ? <StrategyDetail slug={slug!} /> : page === "platform" ? <Platform /> : page === "research" ? <Research /> : page === "article" ? <ArticleDetail slug={slug!} /> : page === "about" ? <About /> : page === "institutions" ? <Institutions /> : <Walkthrough />}</SiteShell>;
 }

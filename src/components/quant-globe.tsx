@@ -12,7 +12,7 @@ function turn(point: Point, angle: number): Point {
 }
 
 /** A decorative, rotating wire globe. No model data is used or represented. */
-export function QuantGlobe({ paused }: { paused: boolean }) {
+export function QuantGlobe({ paused, tone = "light" }: { paused: boolean; tone?: "light" | "dark" }) {
   const hostRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const pausedRef = useRef(paused);
@@ -25,6 +25,22 @@ export function QuantGlobe({ paused }: { paused: boolean }) {
     const context = canvas?.getContext("2d");
     if (!host || !canvas || !context) return;
     const ctx = context;
+    const dark = tone === "dark";
+    const colours = dark ? {
+      atmosphereInner: "rgba(37,99,235,.2)", atmosphereMiddle: "rgba(6,182,212,.1)", atmosphereOuter: "rgba(6,182,212,0)",
+      orbitFront: "rgba(6,182,212,.78)", orbitBack: "rgba(37,99,235,.32)",
+      meridianAccent: "rgba(6,182,212,.76)", meridianFront: "rgba(255,255,255,.32)", meridianBack: "rgba(37,99,235,.23)",
+      latitudeAccent: "rgba(6,182,212,.72)", latitude: "rgba(255,255,255,.18)",
+      nodeGlow: "rgba(6,182,212,.09)", nodeAccent: "6,182,212", nodeBase: "255,255,255",
+      satellite: "#ffffff", satelliteRing: "rgba(6,182,212,.5)",
+    } : {
+      atmosphereInner: "rgba(95,176,255,.14)", atmosphereMiddle: "rgba(156,213,255,.12)", atmosphereOuter: "rgba(225,243,255,0)",
+      orbitFront: "rgba(37,99,235,.52)", orbitBack: "rgba(37,99,235,.16)",
+      meridianAccent: "rgba(0,149,207,.58)", meridianFront: "rgba(37,99,235,.32)", meridianBack: "rgba(65,123,223,.085)",
+      latitudeAccent: "rgba(6,182,212,.48)", latitude: "rgba(37,99,235,.15)",
+      nodeGlow: "rgba(33,101,232,.045)", nodeAccent: "6,170,204", nodeBase: "37,99,235",
+      satellite: "#2165e8", satelliteRing: "rgba(33,101,232,.2)",
+    };
     let width = 600, height = 600, frame = 0, lastTime = 0, phase = .5, visible = true;
 
     function draw(time: number) {
@@ -39,7 +55,7 @@ export function QuantGlobe({ paused }: { paused: boolean }) {
       const cx = width * .5, cy = height * .48;
       const project = (p: Point) => ({ x: cx + p.x * radius * (4 / (4 - p.z)), y: cy + p.y * radius * (4 / (4 - p.z)), z: p.z });
       const atmosphere = ctx.createRadialGradient(cx - radius * .2, cy - radius * .2, radius * .12, cx, cy, radius * 1.45);
-      atmosphere.addColorStop(0, "rgba(95,176,255,.14)"); atmosphere.addColorStop(.65, "rgba(156,213,255,.12)"); atmosphere.addColorStop(1, "rgba(225,243,255,0)");
+      atmosphere.addColorStop(0, colours.atmosphereInner); atmosphere.addColorStop(.65, colours.atmosphereMiddle); atmosphere.addColorStop(1, colours.atmosphereOuter);
       ctx.fillStyle = atmosphere; ctx.fillRect(0, 0, width, height);
 
       const orbitPoint = (a: number) => turn({ x: Math.cos(a) * 1.38, y: Math.sin(a) * .42, z: Math.sin(a) * 1.3 }, -.4);
@@ -49,7 +65,7 @@ export function QuantGlobe({ paused }: { paused: boolean }) {
           const p = orbitPoint(i / 160 * TAU), q = project(p);
           if ((p.z >= 0) === front) { if (!drawing) ctx.moveTo(q.x, q.y); else ctx.lineTo(q.x, q.y); drawing = true; } else drawing = false;
         }
-        ctx.strokeStyle = front ? "rgba(37,99,235,.52)" : "rgba(37,99,235,.16)"; ctx.lineWidth = front ? 1.2 : .8; ctx.stroke();
+        ctx.strokeStyle = front ? colours.orbitFront : colours.orbitBack; ctx.lineWidth = front ? 1.2 : .8; ctx.stroke();
       }
       orbit(false);
 
@@ -64,7 +80,7 @@ export function QuantGlobe({ paused }: { paused: boolean }) {
             const q = project(p);
             if ((p.z >= 0 ? 1 : 0) === front) { if (!drawing) ctx.moveTo(q.x, q.y); else ctx.lineTo(q.x, q.y); drawing = true; } else drawing = false;
           }
-          ctx.strokeStyle = front ? rib % 7 === 0 ? "rgba(0,149,207,.58)" : "rgba(37,99,235,.32)" : "rgba(65,123,223,.085)";
+          ctx.strokeStyle = front ? rib % 7 === 0 ? colours.meridianAccent : colours.meridianFront : colours.meridianBack;
           ctx.lineWidth = rib % 7 === 0 ? 1 : .65; ctx.stroke();
         }
       }
@@ -74,19 +90,19 @@ export function QuantGlobe({ paused }: { paused: boolean }) {
           const b = step / 96 * TAU, q = project(turn({ x: Math.sin(a) * Math.cos(b), y: Math.cos(a) * 1.04, z: Math.sin(a) * Math.sin(b) }, phase));
           if (!step) ctx.moveTo(q.x, q.y); else ctx.lineTo(q.x, q.y);
         }
-        ctx.strokeStyle = latitude === 9 ? "rgba(6,182,212,.48)" : "rgba(37,99,235,.15)"; ctx.lineWidth = latitude === 9 ? 1 : .6; ctx.stroke();
+        ctx.strokeStyle = latitude === 9 ? colours.latitudeAccent : colours.latitude; ctx.lineWidth = latitude === 9 ? 1 : .6; ctx.stroke();
       }
       for (let i = 0; i < 68; i++) {
         const a = Math.acos(1 - 2 * (i + .5) / 68), b = i * 2.39996;
         const p = turn({ x: Math.sin(a) * Math.cos(b), y: Math.cos(a) * 1.04, z: Math.sin(a) * Math.sin(b) }, phase), q = project(p);
-        const alpha = p.z < 0 ? .16 : .55 + p.z * .38;
-        if (p.z > .4) { ctx.beginPath(); ctx.arc(q.x, q.y, 8, 0, TAU); ctx.fillStyle = "rgba(33,101,232,.045)"; ctx.fill(); }
-        ctx.beginPath(); ctx.arc(q.x, q.y, p.z < 0 ? 1.35 : 2.2 + p.z * .8, 0, TAU); ctx.fillStyle = `rgba(${i % 9 === 0 ? "6,170,204" : "37,99,235"},${alpha})`; ctx.fill();
+        const alpha = p.z < 0 ? dark ? .24 : .16 : .55 + p.z * .38;
+        if (p.z > .4) { ctx.beginPath(); ctx.arc(q.x, q.y, 8, 0, TAU); ctx.fillStyle = colours.nodeGlow; ctx.fill(); }
+        ctx.beginPath(); ctx.arc(q.x, q.y, p.z < 0 ? 1.35 : 2.2 + p.z * .8, 0, TAU); ctx.fillStyle = `rgba(${i % 9 === 0 ? colours.nodeAccent : colours.nodeBase},${alpha})`; ctx.fill();
       }
       orbit(true);
       const satellite = project(orbitPoint(-phase * 1.3));
-      ctx.beginPath(); ctx.arc(satellite.x, satellite.y, 5, 0, TAU); ctx.fillStyle = "#2165e8"; ctx.fill();
-      ctx.beginPath(); ctx.arc(satellite.x, satellite.y, 11, 0, TAU); ctx.strokeStyle = "rgba(33,101,232,.2)"; ctx.lineWidth = 1; ctx.stroke();
+      ctx.beginPath(); ctx.arc(satellite.x, satellite.y, 5, 0, TAU); ctx.fillStyle = colours.satellite; ctx.fill();
+      ctx.beginPath(); ctx.arc(satellite.x, satellite.y, 11, 0, TAU); ctx.strokeStyle = colours.satelliteRing; ctx.lineWidth = 1; ctx.stroke();
       if (!pausedRef.current) frame = requestAnimationFrame(draw);
     }
     function start() { if (!frame && visible && !document.hidden) frame = requestAnimationFrame(draw); }
@@ -100,7 +116,7 @@ export function QuantGlobe({ paused }: { paused: boolean }) {
     const visibility = () => { if (document.hidden) { cancelAnimationFrame(frame); frame = 0; } else start(); };
     resize.observe(host); intersection.observe(host); document.addEventListener("visibilitychange", visibility); start();
     return () => { cancelAnimationFrame(frame); controlRef.current = null; resize.disconnect(); intersection.disconnect(); document.removeEventListener("visibilitychange", visibility); };
-  }, []);
+  }, [tone]);
 
-  return <div className="kg-globe" ref={hostRef} aria-hidden="true"><div className="kg-globe-halo" /><canvas ref={canvasRef} /><span className="kg-cross kg-cross-one" /><span className="kg-cross kg-cross-two" /></div>;
+  return <div className="kg-globe" ref={hostRef} data-tone={tone} aria-hidden="true"><div className="kg-globe-halo" /><canvas ref={canvasRef} /><span className="kg-cross kg-cross-one" /><span className="kg-cross kg-cross-two" /></div>;
 }

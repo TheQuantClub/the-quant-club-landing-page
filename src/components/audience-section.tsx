@@ -64,7 +64,7 @@ export function AudienceSection() {
           </div>
 
           <article className="tqc-practice-panel" id={panelId} aria-labelledby={`${sectionId}-role`}>
-            <BrandBackdrop variant="flow" tone="light" scene="institutions" className="tqc-practice-backdrop" />
+            <BrandBackdrop variant="flow" tone="light" className="tqc-practice-backdrop" />
             <div className="tqc-practice-content">
               <div className="tqc-practice-context" aria-hidden="true"><SelectedIcon size={18} strokeWidth={1.6} /><span>YOUR PRACTICE, CONNECTED</span></div>
               <div className="tqc-practice-introduction" aria-live="polite" aria-atomic="true">
