@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { ArrowDown, ArrowRight, ArrowUpRight, Pause, Play, Plus } from "lucide-react";
 import { articles, commonQuestions } from "@/lib/public-content";
-import { homeAudiences } from "@/lib/business-content";
+import { AudienceSection } from "./audience-section";
+import { BrandBackdrop } from "./brand-backdrop";
 import { BusinessOrbit } from "./business-orbit";
 import { ResearchComparison } from "./research-problems";
 import { FlowRibbons } from "./flow-ribbons";
@@ -14,27 +15,13 @@ import { useReducedMotion } from "@/lib/use-reduced-motion";
 export function StrategyCTA() {
   const destination = process.env.NEXT_PUBLIC_WALKTHROUGH_URL || "/walkthrough";
   return (
-    <section className="tqc-closing" aria-labelledby="closing-title">
+    <section className="tqc-closing tqc-brand-section" aria-labelledby="closing-title">
+      <BrandBackdrop tone="dark" variant="signature" />
       <div className="tqc-container tqc-closing-inner">
         <div><p className="tqc-eyebrow">BRING IT INTO YOUR PRACTICE</p><h2 id="closing-title">See where The Quant Club<br />fits into your firm.</h2><p>Explore model portfolios, the built-in analysis engine, implementation tools, and client documents that feel like you.</p></div>
         <Link className="tqc-button tqc-button-light" href={destination}>Book a walkthrough <ArrowUpRight size={19} /></Link>
       </div>
-      <div className="tqc-closing-rings" aria-hidden="true"><i /><i /><i /></div>
     </section>
-  );
-}
-
-function AudienceSection() {
-  return (
-    <section className="tqc-audiences tqc-section" id="who-we-serve" aria-labelledby="audience-title"><div className="tqc-container">
-      <div className="tqc-section-heading"><div><p className="tqc-eyebrow">05 / WHO WE SERVE</p><h2 id="audience-title">Built for the people<br />putting strategies to work.</h2></div><p>From the first client allocation to the next review, bring research and day-to-day work together.</p></div>
-      <div className="tqc-audience-grid">{homeAudiences.map((audience, index) => <article className="tqc-audience-card" key={audience.id}>
-        <div className="tqc-card-top"><span>{audience.name}</span><span className="tqc-card-number">0{index + 1}</span></div>
-        <h3>{audience.title}</h3><p>{audience.copy}</p>
-        <ul>{audience.actions.map(action => <li key={action}><span aria-hidden="true" />{action}</li>)}</ul>
-        <Link className="tqc-text-link" href={`/institutions#${audience.id}`}>Explore your workflow <ArrowUpRight size={17} /></Link>
-      </article>)}</div>
-    </div></section>
   );
 }
 
@@ -44,8 +31,8 @@ export function ByteArtwork({ variant = 0 }: { variant?: number }) {
 
 function BytesSection() {
   return (
-    <section className="tqc-bytes tqc-section" aria-labelledby="bytes-title"><div className="tqc-container">
-      <div className="tqc-section-heading"><div><p className="tqc-eyebrow">06 / IDEAS FOR YOUR PRACTICE</p><h2 id="bytes-title">The Quant Bytes.</h2><p className="tqc-heading-subtitle">A clearer view of research, discipline, and the work around investing.</p></div><Link href="/research" className="tqc-text-link">Explore The Quant Bytes <ArrowUpRight size={18} /></Link></div>
+    <section className="tqc-bytes tqc-section tqc-brand-section" aria-labelledby="bytes-title"><BrandBackdrop variant="flow" /><div className="tqc-container">
+      <div className="tqc-section-heading"><div><p className="tqc-eyebrow">IDEAS FOR YOUR PRACTICE</p><h2 id="bytes-title">The Quant Bytes.</h2><p className="tqc-heading-subtitle">A clearer view of research, discipline, and the work around investing.</p></div><Link href="/research" className="tqc-text-link">Explore The Quant Bytes <ArrowUpRight size={18} /></Link></div>
       <div className="tqc-bytes-grid">{articles.slice(0, 3).map((article, index) => <Link className="tqc-byte-card" href={`/research/${article.slug}`} key={article.slug}>
         <ByteArtwork variant={index} />
         <div className="tqc-byte-meta"><span>{article.category}</span><span>{article.status === "draft" ? "Editorial preview" : article.publishedAt}</span></div>
@@ -58,8 +45,8 @@ function BytesSection() {
 
 export function HomeFAQ() {
   return (
-    <section className="tqc-faq tqc-section" id="questions" aria-labelledby="faq-title"><div className="tqc-container tqc-faq-layout">
-      <div><p className="tqc-eyebrow">07 / QUESTIONS, ANSWERED</p><h2 id="faq-title">Know what stands<br />behind the work.</h2><p>Our data, the research record, and what your firm can expect.</p><Link className="tqc-text-link" href="/walkthrough">Talk through your questions <ArrowUpRight size={18} /></Link></div>
+    <section className="tqc-faq tqc-section tqc-brand-section" id="questions" aria-labelledby="faq-title"><BrandBackdrop variant="orbit" /><div className="tqc-container tqc-faq-layout">
+      <div><p className="tqc-eyebrow">QUESTIONS, ANSWERED</p><h2 id="faq-title">Know what stands<br />behind the work.</h2><p>Our data, the research record, and what your firm can expect.</p><Link className="tqc-text-link" href="/walkthrough">Talk through your questions <ArrowUpRight size={18} /></Link></div>
       <div className="tqc-faq-list">{commonQuestions.map(([question, answer]) => <details key={question}><summary>{question}<Plus size={20} aria-hidden="true" /></summary><p>{answer}</p></details>)}</div>
     </div></section>
   );

@@ -1,0 +1,130 @@
+.tqc-practices {
+  position: relative;
+  padding: 68px 0;
+  background: #f5f8fc;
+  border-block: 1px solid #e2e9f1;
+  scroll-margin-top: 90px;
+}
+
+.tqc-practices-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 30px;
+}
+
+.tqc-practices-heading .tqc-eyebrow { margin-bottom: 12px; }
+.tqc-practices-heading h2 { font-size: clamp(32px, 3.3vw, 45px); letter-spacing: -.05em; line-height: 1.15; }
+.tqc-practices-heading > p { max-width: 280px; padding-bottom: 3px; color: #64758a; font-size: 14px; line-height: 1.65; }
+
+.tqc-practices-layout {
+  display: grid;
+  grid-template-columns: minmax(270px, .85fr) minmax(0, 1.7fr);
+  gap: 22px;
+  align-items: stretch;
+}
+
+.tqc-practices-choices { display: grid; gap: 9px; align-content: center; }
+.tqc-practice-choice {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  min-height: 76px;
+  padding: 18px 21px;
+  border: 1px solid #dce5ef;
+  border-radius: 8px;
+  background: #fff;
+  color: #536a82;
+  text-align: left;
+  transition: background .2s, color .2s, border-color .2s, box-shadow .2s;
+}
+.tqc-practice-choice > span { font-family: var(--heading); font-size: 17px; font-weight: 550; letter-spacing: -.025em; line-height: 1.35; }
+.tqc-practice-choice > svg:first-child { color: #6d8cb0; }
+.tqc-practice-choice-arrow { margin-left: auto; opacity: .35; }
+.tqc-practice-choice:hover { border-color: #a9bfd8; background: #fafcff; color: #153f70; }
+.tqc-practice-choice[aria-pressed="true"] { color: #fff; background: #102e53; border-color: #102e53; box-shadow: 0 5px 16px #173b6220; }
+.tqc-practice-choice[aria-pressed="true"] > svg:first-child { color: #a8cfff; }
+.tqc-practice-choice[aria-pressed="true"] .tqc-practice-choice-arrow { opacity: 1; color: #a8cfff; }
+.tqc-practice-choice:focus-visible, .tqc-practice-link:focus-visible { outline: 3px solid #3d83ea; outline-offset: 4px; }
+
+.tqc-practice-panel {
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  min-height: 350px;
+  padding: 30px 34px 28px;
+  border: 1px solid #dce6f1;
+  border-radius: 12px;
+  background: linear-gradient(118deg, #fff 52%, #edf4fc);
+  overflow: hidden;
+}
+.tqc-practice-backdrop { opacity: .22; }
+.tqc-practice-content { position: relative; z-index: 2; animation: tqc-practice-enter .25s ease both; }
+.tqc-practice-context { display: flex; align-items: center; gap: 9px; color: #4774a6; font-size: 9px; font-weight: 550; letter-spacing: .11em; margin-bottom: 16px; }
+.tqc-practice-introduction h3 { max-width: 590px; margin-bottom: 15px; color: #153250; font-size: clamp(25px, 2.35vw, 33px); font-weight: 550; letter-spacing: -.045em; line-height: 1.15; }
+.tqc-practice-introduction p { max-width: 540px; color: #61758b; font-size: 14px; line-height: 1.7; }
+.tqc-practice-actions { display: grid; gap: 8px; list-style: none; margin: 21px 112px 23px 0; padding: 0; }
+.tqc-practice-actions li { display: flex; align-items: flex-start; gap: 10px; color: #294f75; font-size: 13px; line-height: 1.55; }
+.tqc-practice-actions li svg { margin-top: 2px; color: #3277d4; }
+.tqc-practice-link { display: inline-flex; align-items: center; gap: 16px; color: #1c5db4; font-size: 13px; font-weight: 600; line-height: 1.5; }
+.tqc-practice-link:hover { color: #104682; }
+.tqc-practice-link:hover svg { transform: translate(2px, -2px); }
+
+.tqc-practice-illustration { position: absolute; z-index: 1; width: 128px; height: 138px; right: 23px; bottom: 24px; pointer-events: none; }
+.tqc-practice-orbit { position: absolute; inset: 0 -4px 0 -9px; border: 1px solid #b9d1ef; border-radius: 50%; transform: rotate(-27deg) scaleY(.73); }
+.tqc-practice-paper { position: absolute; width: 76px; height: 102px; border: 1px solid #bed3e9; border-radius: 5px; }
+.tqc-practice-paper-back { top: 12px; left: 19px; transform: rotate(-13deg); background: #e2edf9; }
+.tqc-practice-paper-front { top: 21px; left: 39px; transform: rotate(5deg); padding: 13px 10px; background: #fcfdff; box-shadow: 0 6px 14px #204e7b0b; }
+.tqc-practice-paper-front > i { display: block; width: 13px; height: 5px; margin-bottom: 9px; border-radius: 2px; background: #4d82bf; }
+.tqc-practice-paper-front > strong { display: block; font-size: 9px; font-family: var(--heading); font-weight: 550; color: #446888; margin-bottom: 11px; }
+.tqc-practice-paper-front > span { display: block; height: 2px; margin-top: 5px; border-radius: 2px; background: #d7e3f0; }
+.tqc-practice-paper-front > span:last-child { width: 66%; }
+.tqc-practice-connection { position: absolute; width: 25px; height: 25px; left: 9px; bottom: 18px; display: grid; place-items: center; border: 1px solid #aac8ed; border-radius: 50%; background: #f9fcff; color: #3970b1; }
+
+@keyframes tqc-practice-enter { from { opacity: .35; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 1100px) {
+  .tqc-practices-layout { grid-template-columns: minmax(245px, .9fr) minmax(0, 1.6fr); gap: 18px; }
+  .tqc-practice-choice { padding: 18px 16px; gap: 12px; }
+  .tqc-practice-choice > span { font-size: 15px; }
+  .tqc-practice-panel { padding: 27px; }
+  .tqc-practice-introduction p { font-size: 13px; }
+  .tqc-practice-actions { margin-right: 63px; }
+  .tqc-practice-illustration { right: -14px; bottom: 13px; transform: scale(.8); opacity: .65; }
+}
+
+@media (max-width: 760px) {
+  .tqc-practices { padding: 48px 0; }
+  .tqc-practices-heading { display: block; margin-bottom: 25px; }
+  .tqc-practices-heading > p { margin-top: 13px; max-width: none; }
+  .tqc-practices-layout { grid-template-columns: minmax(0, 1fr); gap: 17px; }
+  .tqc-practices-choices { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .tqc-practice-choice { min-height: 83px; padding: 15px; gap: 10px; }
+  .tqc-practice-choice > span { font-size: 15px; }
+  .tqc-practice-choice-arrow { display: none; }
+  .tqc-practice-panel { min-height: 338px; padding: 27px; }
+  .tqc-practice-introduction h3 { font-size: 29px; }
+  .tqc-practice-introduction p { font-size: 14px; }
+  .tqc-practice-actions { margin-right: 100px; }
+  .tqc-practice-illustration { right: 12px; bottom: 18px; opacity: .8; transform: scale(.86); }
+}
+
+@media (max-width: 420px) {
+  .tqc-practices-heading h2 { font-size: 34px; max-width: 265px; }
+  .tqc-practice-choice { flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 9px; padding: 13px; min-height: 106px; }
+  .tqc-practice-choice > span { font-size: 14px; }
+  .tqc-practice-choice > svg:first-child { width: 18px; height: 18px; }
+  .tqc-practice-panel { padding: 23px 21px; min-height: 0; }
+  .tqc-practice-context { font-size: 8px; letter-spacing: .085em; margin-bottom: 16px; }
+  .tqc-practice-introduction h3 { font-size: 27px; }
+  .tqc-practice-introduction p { font-size: 13px; line-height: 1.7; }
+  .tqc-practice-actions { margin-right: 0; margin-top: 18px; }
+  .tqc-practice-actions li { font-size: 12px; }
+  .tqc-practice-illustration { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tqc-practice-content { animation: none; }
+  .tqc-practice-choice, .tqc-practice-link svg { transition: none; }
+}

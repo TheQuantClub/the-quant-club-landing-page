@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type CSSProperties, type ReactNode } from "react";
-import { ArrowRight, Check, ChevronRight, FileText, Fingerprint, HeartPulse, ListChecks, RotateCcw, SlidersHorizontal, Users } from "lucide-react";
+import { ArrowRight, Check, FileText, Fingerprint, HeartPulse, ListChecks, RotateCcw, SlidersHorizontal, Users } from "lucide-react";
+import { QuantLogo } from "./logo";
+import { BrandBackdrop } from "./brand-backdrop";
 
 const scenes = [
   {
@@ -32,7 +34,7 @@ const scenes = [
     description: "Six abstract client request tags move from scattered positions into three labelled client lanes. No actual client data or investment amounts are shown.",
   },
   {
-    key: "actions", label: "Updates & actions", icon: ListChecks, pillar: "Implementation",
+    key: "actions", label: "Updates", icon: ListChecks, pillar: "Implementation",
     title: "Updates can slip through the gaps.",
     problem: "An update in an inbox. A follow-up in a message. It becomes difficult to see what is waiting and what is already done.",
     solution: "Make the next action visible.",
@@ -41,7 +43,7 @@ const scenes = [
     description: "The same six task tokens move into pending, confirmed and review lanes.",
   },
   {
-    key: "reports", label: "Manual reports", icon: FileText, pillar: "Your brand",
+    key: "reports", label: "Reports", icon: FileText, pillar: "Your brand",
     title: "Reports take too much manual work.",
     problem: "Collecting the pieces and rebuilding the same report takes time away from the client conversation. The work repeats with every update.",
     solution: "Bring the pieces into a branded report.",
@@ -50,7 +52,7 @@ const scenes = [
     description: "Six generic paper sections move together to form a single report. The illustration contains no model, holdings or performance information.",
   },
   {
-    key: "branding", label: "Your firm's identity", icon: Fingerprint, pillar: "Your brand",
+    key: "branding", label: "Your brand", icon: Fingerprint, pillar: "Your brand",
     title: "Your work should look like your firm.",
     problem: "You build the relationship. Differently styled documents can make the work feel disconnected from the firm delivering it.",
     solution: "Keep your firm's identity consistent.",
@@ -72,7 +74,7 @@ function useScene({ selectedScene, onSceneChange }: ResearchSceneProps) {
 function SceneSelector({ value, onChange, panelId, label }: { value: number; onChange: (index: number) => void; panelId: string; label: string }) {
   return <div className="qp-selector" role="group" aria-label={label}>
     {scenes.map(({ label: name, icon: Icon }, index) => <button key={name} type="button" className="qp-choice" aria-pressed={value === index} aria-controls={panelId} onClick={() => onChange(index)}>
-      <Icon size={18} strokeWidth={1.65} aria-hidden="true" /><span>{name}</span><ChevronRight className="qp-choice-arrow" size={15} aria-hidden="true" />
+      <Icon size={17} strokeWidth={1.65} aria-hidden="true" /><span>{name}</span>
     </button>)}
   </div>;
 }
@@ -121,7 +123,6 @@ function ProcessVisual({ scene, solved }: { scene: number; solved: boolean }) {
         <div className="qp-visual-footnote">One considered identity</div>
       </>}
     </div>
-    <div className="qp-visual-caption"><span className="qp-status-dot" /><span>{solved ? item.after : item.before}</span></div>
   </div>;
 }
 
@@ -133,6 +134,7 @@ export function ResearchComparison(props: ResearchSceneProps = {}) {
   const visible = useRef(true);
   const panelId = useId();
   const item = scenes[selected];
+  const TopicIcon = item.icon;
 
   useEffect(() => {
     const element = workbench.current;
@@ -184,21 +186,23 @@ export function ResearchComparison(props: ResearchSceneProps = {}) {
 
   return <section className="qp-section qp-comparison-section" id="why-quant-club" aria-labelledby={`${panelId}-heading`}>
     <div className="tqc-container">
-      <div className="qp-section-intro"><div><p className="tqc-eyebrow">03 / THE PRACTICAL DIFFERENCE</p><h2 className="qp-section-heading" id={`${panelId}-heading`}>Rules for the strategy.<br />Order for the work.</h2></div><p>Pick a familiar challenge.<br />See the process that helps.</p></div>
+      <div className="qp-section-intro"><div><p className="tqc-eyebrow">THE PRACTICAL DIFFERENCE</p><h2 className="qp-section-heading" id={`${panelId}-heading`}>Rules for the strategy.<br />Order for the work.</h2></div><p>Bring structure to the decisions, tasks and documents your team handles every day.</p></div>
       <div className="qp-workbench" ref={workbench}>
-        <aside className="qp-topic-rail"><span className="qp-rail-label">The everyday work</span><SceneSelector value={selected} onChange={chooseScene} panelId={panelId} label="Choose a challenge" /></aside>
+        <div className="qp-topic-navigation"><SceneSelector value={selected} onChange={chooseScene} panelId={panelId} label="Choose a challenge" /></div>
         <div className="qp-pair" id={panelId}>
           <article className="qp-side qp-side-before" aria-labelledby={`${panelId}-problem`}>
-            <div className="qp-panel-label"><span className="qp-panel-dot" />The problem</div>
+            <div className="qp-card-header"><span className="qp-challenge-icon" aria-hidden="true"><TopicIcon size={23} strokeWidth={1.5} /></span><span className="qp-panel-label">The challenge</span></div>
             <div className="qp-panel-copy"><h3 id={`${panelId}-problem`}>{item.title}</h3><p>{item.problem}</p></div>
             <ProcessVisual scene={selected} solved={false} />
+            <div className="qp-card-footer qp-challenge-outcome"><span className="qp-status-dot" /><p>{item.before}</p></div>
           </article>
-          <span className="qp-connection" aria-hidden="true"><ArrowRight size={17} /></span>
+          <span className="qp-connection" aria-hidden="true"><ArrowRight size={21} strokeWidth={1.6} /></span>
           <article className={`qp-side qp-side-after${resetting ? " qp-replay-reset" : ""}`} aria-labelledby={`${panelId}-solution`}>
-            <div className="qp-panel-label"><span className="qp-panel-dot" />{item.pillar}</div>
+            <BrandBackdrop variant="signature" tone="dark" className="qp-brand-backdrop" />
+            <div className="qp-card-header"><span className="qp-response-mark" aria-hidden="true"><QuantLogo compact inverse /></span><div><span className="qp-panel-label">With The Quant Club</span><span className="qp-pillar">{item.pillar}</span></div></div>
             <div className="qp-panel-copy"><h3 id={`${panelId}-solution`}>{item.solution}</h3><p>{item.answer}</p></div>
             <ProcessVisual scene={selected} solved={!resetting} />
-            <button type="button" className="qp-replay" onClick={replay} aria-label={`Replay the change: ${item.label}`}><RotateCcw size={15} aria-hidden="true" />Replay the change</button>
+            <div className="qp-card-footer qp-response-outcome"><div className="qp-outcome"><span><Check size={16} aria-hidden="true" /></span><p>{item.after}</p></div><button type="button" className="qp-replay" onClick={replay} aria-label={`Replay the change: ${item.label}`}><RotateCcw size={15} aria-hidden="true" />Replay</button></div>
           </article>
         </div>
       </div>

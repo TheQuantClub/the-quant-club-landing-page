@@ -5,6 +5,9 @@ import "./research-problems.css";
 import "./strategy-character-art.css";
 import "./marketing-refresh.css";
 import "./kinetic-refresh.css";
+import "./audience-section.css";
+import "./brand-continuity.css";
+import { BrandMotionProvider } from "@/components/brand-backdrop";
 
 export const metadata: Metadata = {
   title: "The Quant Club — Model portfolios, analysis, and your brand.",
@@ -18,5 +21,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body>{children}</body></html>;
+  return <html lang="en"><body><BrandMotionProvider>{children}</BrandMotionProvider></body></html>;
 }
