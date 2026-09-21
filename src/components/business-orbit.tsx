@@ -52,12 +52,12 @@ export function BusinessOrbit() {
 
   return <section ref={root} className="sa-section sa-branded" id="what-we-do" aria-labelledby="business-title" onFocusCapture={event => { if (event.target.matches(":focus-visible")) setKeyboardFocus(true); }} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setKeyboardFocus(false); }}>
     <div className="tqc-container">
-      <div className="sa-section-top"><p className="sa-overline">One platform. Around your practice.</p><p>From model portfolios to the work around your clients.</p></div>
+      <div className="sa-section-top"><div><p className="tqc-eyebrow">QUANT-LED MODEL PORTFOLIOS</p><h2 id="business-title">One platform.<br /><em>Around your practice.</em></h2></div><p>Start with quant-led equity and mutual fund strategies. Bring analysis, implementation, maintenance and your brand into the same workflow.</p></div>
       <div className="sa-layout">
         <div className="sa-copy" id="business-panel">
           <div className="sa-counter"><span className="sa-capability-icon"><ActiveIcon size={20} strokeWidth={1.6} aria-hidden="true" /></span><strong>{pillar.name}</strong></div>
-          <div className="sa-description" key={pillar.id}><h2 id="business-title">{pillar.title}</h2><p>{pillar.copy}</p></div>
-          <Link href={`/platform#${pillar.id}`} className="tqc-text-link">Explore {pillar.name.toLowerCase()} <ArrowUpRight size={18} /></Link>
+          <div className="sa-description" key={pillar.id}><h3>{pillar.title}</h3><p>{pillar.copy}</p></div>
+          <Link href={pillar.id === "research" ? "/strategies" : `/platform#${pillar.id}`} className="tqc-text-link">{pillar.id === "research" ? "Explore the strategies" : `Explore ${pillar.name.toLowerCase()}`} <ArrowUpRight size={18} /></Link>
           <div className="sa-controls"><div className="sa-step-markers" role="group" aria-label="Choose a platform capability">{businessPillars.map((item, index) => <button type="button" key={item.id} aria-label={item.name} aria-pressed={active === index} aria-controls="business-panel" onClick={() => choose(index)}><span /></button>)}</div><div className="sa-arrows"><button type="button" aria-label="Previous capability" onClick={() => advance(-1)}><ArrowLeft size={18} /></button><button type="button" aria-label="Next capability" onClick={() => advance(1)}><ArrowRight size={18} /></button></div></div>
         </div>
         <div className="sa-art">

@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { ArrowDown, ArrowRight, ArrowUpRight, Pause, Play, Plus } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Pause, Play, Plus } from "lucide-react";
 import { articles, commonQuestions } from "@/lib/public-content";
 import { AudienceSection } from "./audience-section";
 import { BrandBackdrop } from "./brand-backdrop";
 import { BusinessOrbit } from "./business-orbit";
 import { ResearchComparison } from "./research-problems";
 import { FlowRibbons } from "./flow-ribbons";
-import { QuantGlobe } from "./quant-globe";
+import { QuantFramework } from "./quant-framework";
 import { useReducedMotion } from "@/lib/use-reduced-motion";
 
 export function StrategyCTA() {
@@ -18,7 +18,7 @@ export function StrategyCTA() {
     <section className="tqc-closing tqc-brand-section" aria-labelledby="closing-title">
       <BrandBackdrop tone="dark" variant="signature" />
       <div className="tqc-container tqc-closing-inner">
-        <div><p className="tqc-eyebrow">BRING IT INTO YOUR PRACTICE</p><h2 id="closing-title">See where The Quant Club<br />fits into your firm.</h2><p>Explore model portfolios, the built-in analysis engine, implementation tools, and client documents that feel like you.</p></div>
+        <div><p className="tqc-eyebrow">BRING IT INTO YOUR PRACTICE</p><h2 id="closing-title">See where The Quant Club<br />fits into your firm.</h2><p>Explore quant-led model portfolios, the built-in analysis engine, implementation tools, and client documents that feel like you.</p></div>
         <Link className="tqc-button tqc-button-light" href={destination}>Book a walkthrough <ArrowUpRight size={19} /></Link>
       </div>
     </section>
@@ -59,17 +59,16 @@ export function StrategyHome() {
   return (
     <div className="tqc-home">
       <section className="tqc-hero tqc-hero--kinetic tqc-hero--gradient" aria-labelledby="hero-title">
-        <FlowRibbons paused={paused || reduced} tone="dark" />
+        <div className="qf-flow-field" aria-hidden="true"><FlowRibbons paused={paused || reduced} tone="dark" /></div>
         <div className="tqc-container">
           <div className="tqc-hero-stage">
             <div className="tqc-hero-story"><p className="tqc-eyebrow"><span /> FOR INVESTMENT ADVISERS & WEALTH TEAMS</p>
               <h1 id="hero-title"><span>Let rules guide<br />the strategy.</span><span>Let your brand lead<br />the relationship.</span></h1>
-              <p className="tqc-hero-description">Model portfolios, a built-in analysis engine, and tools for implementation and portfolio maintenance. All connected to the way you serve your clients.</p>
-              <div className="tqc-hero-actions"><Link href={destination} className="tqc-button">Book a walkthrough <ArrowUpRight size={19} /></Link><Link href="/platform" className="tqc-text-link">Explore the platform <ArrowRight size={18} /></Link></div>
+              <p className="tqc-hero-description">Quant-led model portfolios built on data and defined rules. Evaluate strategies in the analysis engine, then connect implementation, portfolio maintenance and your firm&apos;s client experience.</p>
+              <div className="tqc-hero-actions"><Link href={destination} className="tqc-button">Book a walkthrough <ArrowUpRight size={19} /></Link><Link href="/strategies" className="tqc-text-link">Explore the strategies <ArrowRight size={18} /></Link></div>
             </div>
-            <div className="tqc-hero-world"><QuantGlobe paused={paused || reduced} tone="dark" /><div className="tqc-world-caption"><span>A SYSTEMATIC PERSPECTIVE.</span>{!reduced && <button type="button" onClick={() => setPaused(!paused)} aria-label={paused ? "Play globe and flowing lines" : "Pause globe and flowing lines"}>{paused ? <Play size={13} /> : <Pause size={13} />}{paused ? "Play" : "Pause"}</button>}</div></div>
+            <div className="tqc-hero-world tqc-quant-world"><QuantFramework paused={paused || reduced} /><div className="tqc-world-caption"><span>A QUANTITATIVE FRAMEWORK.</span>{!reduced && <button type="button" onClick={() => setPaused(!paused)} aria-label={paused ? "Play hero animation" : "Pause hero animation"}>{paused ? <Play size={13} /> : <Pause size={13} />}{paused ? "Play" : "Pause"}</button>}</div></div>
           </div>
-          <div className="tqc-hero-baseline"><a className="tqc-scroll-cue" href="#what-we-do"><span>EXPLORE THE FULL PICTURE</span><ArrowDown size={17} /></a><p>Model portfolios. Your practice. <strong>Your identity.</strong></p></div>
         </div>
       </section>
       <BusinessOrbit />

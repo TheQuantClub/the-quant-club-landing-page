@@ -8,11 +8,11 @@ import { useReducedMotion } from "@/lib/use-reduced-motion";
 
 const scenes = [
   {
-    key: "emotion", label: "Emotions", icon: HeartPulse, pillar: "Model portfolios",
+    key: "emotion", label: "Emotions", icon: HeartPulse, pillar: "Quant-led model portfolios",
     title: "Emotions can change the plan",
     problem: "A headline, a sudden move or a strong opinion can pull a decision away from the plan you agreed with the client.",
     solution: "Give the decision a set of rules.",
-    answer: "Model portfolios give your team a defined strategy to work from, with a documented selection and review process behind each decision.",
+    answer: "Quant-led model portfolios give your team a strategy built on data and defined rules, with a documented selection and review process behind each decision.",
     before: "Pulled in different directions", after: "Following a defined process",
     description: "The same decision markers move from scattered positions between fear and hype onto one defined rule path.",
   },
@@ -215,7 +215,7 @@ export function ResearchComparison(props: ResearchSceneProps = {}) {
 
   return <section className="qp-section qp-comparison-section" id="why-quant-club" data-scene={item.key} aria-labelledby={`${panelId}-heading`}>
     <div className="tqc-container">
-      <div className="qp-section-intro"><div><p className="tqc-eyebrow">THE PRACTICAL DIFFERENCE</p><h2 className="qp-section-heading" id={`${panelId}-heading`}>Rules for the strategy.<br />Order for the work.</h2></div><p>Bring structure to the decisions, tasks and documents your team handles every day.</p></div>
+      <div className="qp-section-intro"><div><p className="tqc-eyebrow">THE PRACTICAL DIFFERENCE</p><h2 className="qp-section-heading" id={`${panelId}-heading`}>Why The Quant Club</h2></div><p>Quant-led strategies at the core. The tools to evaluate them, put them to work and support your client relationships.</p></div>
       <div className="qp-workbench" ref={workbench}>
         <div className="qp-topic-navigation"><SceneSelector value={selected} onChange={chooseScene} panelId={panelId} label="Choose a challenge" /></div>
         <div className="qp-pair" id={panelId}>

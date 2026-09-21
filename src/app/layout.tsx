@@ -9,15 +9,16 @@ import "./audience-section.css";
 import "./brand-continuity.css";
 import "./hero-gradient.css";
 import "./adaptive-header.css";
+import "./quant-framework.css";
 import { BrandMotionProvider } from "@/components/brand-backdrop";
 
 export const metadata: Metadata = {
-  title: "The Quant Club — Model portfolios, analysis, and your brand.",
-  description: "Model portfolios, a built-in analysis engine, implementation tools, portfolio maintenance and personalised client reporting. Built for investment advisers and wealth teams.",
+  title: "The Quant Club — Quant-led model portfolios.",
+  description: "Quant-led model portfolios built on data and defined rules. Quantitative research, analysis and implementation tools for investment advisers and wealth teams.",
   icons: { icon: "/favicon.svg", apple: "/quant-mark.svg" },
   openGraph: {
     title: "The Quant Club — Let rules guide the strategy. Let your brand lead the relationship.",
-    description: "Connect model portfolios, a built-in analysis engine, implementation, maintenance and your firm's identity in one professional platform.",
+    description: "Explore quant-led model portfolios and the quantitative research behind them, with tools for analysis, implementation and reporting in your firm's identity.",
     type: "website",
   },
 };

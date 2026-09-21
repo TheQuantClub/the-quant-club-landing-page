@@ -8,9 +8,9 @@ export type BusinessPillar = {
 export const businessPillars: BusinessPillar[] = [
   {
     id: "research",
-    name: "Model portfolios",
-    title: "Model portfolios. Ready for your investment process.",
-    copy: "Bring equity and mutual fund model portfolios into your firm's investment process. Access the models and supporting research within the member platform.",
+    name: "Quant-led model portfolios",
+    title: "Quant-led model portfolios. Built on data and rules.",
+    copy: "Equity and mutual fund model portfolios built on quantitative research, data and defined rules. Examine the models and supporting research within the member platform.",
   },
   {
     id: "evaluate",
@@ -57,28 +57,28 @@ export const homeAudiences: HomeAudience[] = [
     id: "advisers",
     name: "Investment advisers",
     title: "Carry the investment decision through to the client review.",
-    copy: "Evaluate model portfolios with the built-in analysis engine, prepare client instructions and maintain the investment record. Bring your name and identity into each client review.",
-    actions: ["Evaluate model portfolios", "Prepare orders and maintain portfolios", "Make client reports your own"],
+    copy: "Bring quant-led model portfolios into your advisory process. Evaluate the research, prepare client instructions and maintain the investment record, with every review in your firm's identity.",
+    actions: ["Evaluate quant-led model portfolios", "Prepare orders and maintain portfolios", "Make client reports your own"],
   },
   {
     id: "distributors",
     name: "Mutual fund distributors",
     title: "Put model portfolios to work in your mutual fund offering.",
-    copy: "Use mutual fund model portfolios, built-in analysis and order preparation tools. Give clients factsheets and review material that carry your firm's name and identity.",
+    copy: "Build your fund offering around quant-led model portfolios. Evaluate the research with the analysis engine and prepare client material that carries your firm's name and identity.",
     actions: ["Evaluate mutual fund models", "Prepare fund order files", "Keep your identity in every review"],
   },
   {
     id: "wealth",
     name: "Wealth management teams",
     title: "Connect investment, operations and relationship teams.",
-    copy: "Use model portfolios and built-in analysis across the investment process. Coordinate implementation and maintenance, then give the relationship team reports that feel like your firm.",
+    copy: "Start with quant-led model portfolios and the research behind them. Connect investment decisions with implementation, maintenance and client reports that feel like your firm.",
     actions: ["Coordinate portfolio implementation", "Monitor portfolios and outstanding actions", "Prepare review packs in your name"],
   },
   {
     id: "institutions",
     name: "Investment institutions",
     title: "Bring model portfolios into the systems your team already uses.",
-    copy: "PMS desks, AIFs and family offices can evaluate model portfolios with the analysis engine and implement them through their own systems, with reporting in the firm's identity.",
+    copy: "PMS desks, AIFs and family offices can assess quant-led model portfolios alongside their own research, then implement through existing systems with reporting in the firm's identity.",
     actions: ["Evaluate models within your mandate", "Implement through your own systems", "Keep reporting in your firm's identity"],
   },
 ];
