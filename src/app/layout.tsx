@@ -10,6 +10,7 @@ import "./brand-continuity.css";
 import "./hero-gradient.css";
 import "./adaptive-header.css";
 import "./quant-framework.css";
+import "./statement-section.css";
 import { BrandMotionProvider } from "@/components/brand-backdrop";
 
 export const metadata: Metadata = {

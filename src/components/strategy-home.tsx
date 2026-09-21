@@ -52,6 +52,14 @@ export function HomeFAQ() {
   );
 }
 
+function QuantStatement() {
+  return <section className="tqc-conviction" aria-labelledby="conviction-title">
+    <div className="tqc-container">
+      <h2 id="conviction-title"><span>We cannot tell you what happens next.</span><span>But our quant-led models <em>help you prepare for it.</em></span></h2>
+    </div>
+  </section>;
+}
+
 export function StrategyHome() {
   const [paused, setPaused] = useState(false);
   const reduced = useReducedMotion();
@@ -73,6 +81,7 @@ export function StrategyHome() {
       </section>
       <BusinessOrbit />
       <ResearchComparison />
+      <QuantStatement />
       <AudienceSection /><BytesSection /><HomeFAQ /><StrategyCTA />
     </div>
   );

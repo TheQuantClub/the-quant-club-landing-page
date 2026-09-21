@@ -1,0 +1,9 @@
+/* A quiet statement between the reasons to choose Quant Club and the audience workflows. */
+.tqc-conviction{padding:104px 0 110px;text-align:center}
+.tqc-conviction h2{max-width:990px;margin:0 auto;font-size:clamp(38px,4vw,56px);line-height:1.22;letter-spacing:-.04em;font-weight:500}
+.tqc-conviction h2>span{display:block}
+.tqc-conviction h2>span:first-child{color:#c3d7e6;max-width:930px;margin:0 auto}
+.tqc-conviction h2>span+span{margin-top:26px;color:#fff}
+.tqc-conviction h2 em{font-style:normal;color:#a9dcff}
+@media(max-width:780px){.tqc-conviction{padding:76px 0 80px}.tqc-conviction h2{font-size:clamp(32px,5.2vw,40px);max-width:660px}.tqc-conviction h2>span+span{margin-top:23px}}
+@media(max-width:380px){.tqc-conviction{padding:64px 0 68px}.tqc-conviction h2{font-size:30px}}

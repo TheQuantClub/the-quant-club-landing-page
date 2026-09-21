@@ -53,7 +53,7 @@ function SiteShell({ children, page }: { children: ReactNode; page: SiteView }) 
       frame = 0;
       const sampleY = bar.getBoundingClientRect().height / 2;
       const viewportWidth = document.documentElement.clientWidth;
-      const dark = Array.from(main.querySelectorAll<HTMLElement>(".tqc-hero--gradient, .mk-strategy-detail-hero, .tqc-closing")).some(section => {
+      const dark = Array.from(main.querySelectorAll<HTMLElement>(".tqc-hero--gradient, .mk-strategy-detail-hero, .tqc-closing, .tqc-conviction")).some(section => {
         const rect = section.getBoundingClientRect();
         return rect.top <= sampleY && rect.bottom > sampleY && rect.left <= 8 && rect.right >= viewportWidth - 8;
       });

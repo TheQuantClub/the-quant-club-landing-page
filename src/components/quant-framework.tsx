@@ -39,7 +39,7 @@ export function QuantFramework({ paused }: { paused: boolean }) {
 
   return <div className="qf-framework" ref={root} data-paused={paused} data-active="false">
     <div className="qf-universe"><QuantGlobe paused={paused} tone="dark" /><span>Market data</span></div>
-    <svg className="qf-filter-bridge" viewBox="0 0 365 42" aria-hidden="true"><path d="M100 2C85 15 40 12 25 39M265 2C245 21 140 16 120 39" /><path d="M155 2C142 18 80 17 65 39M210 2C198 18 103 17 90 39" /></svg>
+    <div className="qf-data-connector" aria-hidden="true"><i /></div>
     <div className="qf-process">
       <svg className="qf-process-art" viewBox="0 0 145 216" aria-hidden="true">
         <path className="qf-guide" d="M20 22 44 78M125 22 101 78M45 126 57 171M100 126 87 171" />

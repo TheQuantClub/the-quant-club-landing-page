@@ -1,5 +1,5 @@
 /* The approved navy, blue and cyan gradient carries the whole opening section. */
-.tqc-hero--gradient,.tqc-home .tqc-closing{
+.tqc-hero--gradient,.tqc-home .tqc-closing,.tqc-conviction{
   background:radial-gradient(ellipse at 87% 24%,#3458ad88,transparent 49%),radial-gradient(ellipse at 67% 100%,#127a8288,transparent 55%),#102c49;
   color:#fff;
 }
@@ -13,7 +13,6 @@
 .tqc-hero--gradient .tqc-hero-actions>.tqc-button:hover{background:#e6f4ff;border-color:#e6f4ff}
 .tqc-hero--gradient .tqc-hero-actions>.tqc-text-link{color:#d3e9fb}
 .tqc-hero--gradient .tqc-hero-actions>.tqc-text-link:hover{color:#fff}
-.tqc-hero--gradient .kg-globe-halo{background:radial-gradient(ellipse,#47c3ed09,#2d84d614 55%,transparent 73%)}
 .tqc-hero--gradient .kg-cross:before,.tqc-hero--gradient .kg-cross:after{background:#83caec}
 .tqc-hero--gradient .tqc-world-caption{color:#a7cbe4}
 .tqc-hero--gradient .tqc-world-caption>button{color:#c9e5f7;border-color:#739ec65c;background:#10344e94}

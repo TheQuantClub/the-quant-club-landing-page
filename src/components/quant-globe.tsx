@@ -27,12 +27,10 @@ export function QuantGlobe({ paused, tone = "light" }: { paused: boolean; tone?:
     const ctx = context;
     const dark = tone === "dark";
     const colours = dark ? {
-      atmosphereInner: "rgba(37,99,235,.2)", atmosphereMiddle: "rgba(6,182,212,.1)", atmosphereOuter: "rgba(6,182,212,0)",
       meridianAccent: "rgba(6,182,212,.76)", meridianFront: "rgba(255,255,255,.32)", meridianBack: "rgba(37,99,235,.23)",
       latitudeAccent: "rgba(6,182,212,.72)", latitude: "rgba(255,255,255,.18)",
       nodeGlow: "rgba(6,182,212,.09)", nodeAccent: "6,182,212", nodeBase: "255,255,255",
     } : {
-      atmosphereInner: "rgba(95,176,255,.14)", atmosphereMiddle: "rgba(156,213,255,.12)", atmosphereOuter: "rgba(225,243,255,0)",
       meridianAccent: "rgba(0,149,207,.58)", meridianFront: "rgba(37,99,235,.32)", meridianBack: "rgba(65,123,223,.085)",
       latitudeAccent: "rgba(6,182,212,.48)", latitude: "rgba(37,99,235,.15)",
       nodeGlow: "rgba(33,101,232,.045)", nodeAccent: "6,170,204", nodeBase: "37,99,235",
@@ -47,13 +45,10 @@ export function QuantGlobe({ paused, tone = "light" }: { paused: boolean; tone?:
       lastTime = time;
       if (!pausedRef.current) phase += elapsed * .000115;
       ctx.clearRect(0, 0, width, height);
-      const radius = Math.min(width, height) * .435;
+      // Keep strokes and their local node glow inside a fully transparent edge.
+      const radius = Math.min(width, height) * .42;
       const cx = width * .5, cy = height * .47;
       const project = (p: Point) => ({ x: cx + p.x * radius * (4 / (4 - p.z)), y: cy + p.y * radius * (4 / (4 - p.z)), z: p.z });
-      const atmosphere = ctx.createRadialGradient(cx - radius * .2, cy - radius * .2, radius * .12, cx, cy, radius * 1.04);
-      atmosphere.addColorStop(0, colours.atmosphereInner); atmosphere.addColorStop(.65, colours.atmosphereMiddle); atmosphere.addColorStop(1, colours.atmosphereOuter);
-      ctx.fillStyle = atmosphere; ctx.fillRect(0, 0, width, height);
-
       // Woven meridians retain the depth and movement of the original artwork.
       const ribs = width < 420 ? 38 : 52;
       for (let rib = 0; rib < ribs; rib++) {
@@ -99,5 +94,5 @@ export function QuantGlobe({ paused, tone = "light" }: { paused: boolean; tone?:
     return () => { cancelAnimationFrame(frame); controlRef.current = null; resize.disconnect(); intersection.disconnect(); document.removeEventListener("visibilitychange", visibility); };
   }, [tone]);
 
-  return <div className="kg-globe" ref={hostRef} data-tone={tone} aria-hidden="true"><div className="kg-globe-halo" /><canvas ref={canvasRef} /></div>;
+  return <div className="kg-globe" ref={hostRef} data-tone={tone} aria-hidden="true"><canvas ref={canvasRef} /></div>;
 }
