@@ -1,22 +1,16 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import "./site.css";
-import "./reference.css";
-import "./strategy-visual.css";
-import "./strategy-home.css";
-import "./institution-story.css";
-import "./flow-ribbons.css";
+import "./brand-refresh.css";
 import "./research-problems.css";
-import "./platform-cycle.css";
-import "./strategy-character-art.css";
+import "./marketing-refresh.css";
 
 export const metadata: Metadata = {
-  title: "The Quant Club — Investment intelligence built on quants, not opinions.",
-  description: "Equity and mutual fund strategies for investment professionals. Explore the methodology, equal-weight model portfolios and monthly research publications.",
+  title: "The Quant Club — Research, deployment, and your brand.",
+  description: "Quantitative research, strategy deployment, portfolio maintenance, and client reporting in your firm's brand. Built for investment advisers and wealth management teams.",
   icons: { icon: "/favicon.svg", apple: "/quant-mark.svg" },
   openGraph: {
-    title: "The Quant Club — Investment intelligence built on quants, not opinions.",
-    description: "Equity and mutual fund strategies. Understand the method, choose your strategy and put the research to work.",
+    title: "The Quant Club — Let rules guide the strategy. Let your brand lead the relationship.",
+    description: "Connect quantitative research, strategy deployment, portfolio maintenance, and branded client reporting in one professional platform.",
     type: "website",
   },
 };

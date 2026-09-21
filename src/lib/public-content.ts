@@ -1,59 +1,146 @@
 export const publicStrategies = [
-  {slug:"large-cap",name:"Large Cap Club",type:"Equity",theme:"Foundation",universe:"Large-cap equities",title:"Established businesses. A systematic perspective.",description:"A disciplined framework for exploring India’s large-cap equity universe through defined selection and portfolio construction rules.",lens:"Explore established companies through a consistent research lens, with a clearly described universe and portfolio approach.",shape:"large"},
-  {slug:"mid-cap",name:"Mid Cap Club",type:"Equity",theme:"Evolution",universe:"Mid-cap equities",title:"An evolving universe. A consistent process.",description:"A structured approach to the mid-cap universe, applying repeatable research principles to selection and construction.",lens:"Understand how an evolving investment universe can be approached through documented eligibility and selection principles.",shape:"mid"},
-  {slug:"small-cap",name:"Small Cap Club",type:"Equity",theme:"Discovery",universe:"Small-cap equities",title:"Look deeper. Stay disciplined.",description:"A systematic lens on small-cap equities, built around a defined investment universe and a repeatable selection process.",lens:"Explore the role of a defined research framework when considering smaller companies, with attention to the scope and limits of the model.",shape:"small"},
-  {slug:"multi-cap",name:"Multi Cap Club",type:"Equity",theme:"Perspective",universe:"Equities across market caps",title:"A broader universe. One research philosophy.",description:"A quantitative framework that explores equities across market-cap segments through a consistent construction process.",lens:"Bring different market-cap segments into a common research framework while keeping the strategy’s mandate clear.",shape:"multi"},
-  {slug:"diversified-funds",name:"Diversified Mutual Fund Club",type:"Mutual funds",theme:"Structure",universe:"Diversified mutual funds",title:"Many possibilities. A considered structure.",description:"A systematic approach to diversified mutual-fund selection, bringing a documented framework to model portfolio construction.",lens:"Start with the purpose of the portfolio, then explore how the fund universe and selection framework support that purpose.",shape:"funds"},
-  {slug:"sector-rotation",name:"Sector Rotation Club",type:"Mutual funds",theme:"Adaptation",universe:"Sector & thematic mutual funds",title:"Markets evolve. The process endures.",description:"A rules-based research framework for sector and thematic fund allocation, with a clearly defined review process.",lens:"Explore the thinking behind sector allocation, the investment universe and the role of a scheduled review process.",shape:"sector"},
+  {
+    slug: "large-cap", name: "Large Cap Club", type: "Equity", theme: "Large cap",
+    universe: "Large-cap equities", title: "Quantitative research for large-cap equities.",
+    description: "An equity strategy focused on India's large-cap companies, supported by research and portfolio tools within the platform.",
+    lens: "Explore the strategy within the platform and assess its role in your firm's large-cap mandate.",
+    shape: "large",
+  },
+  {
+    slug: "mid-cap", name: "Mid Cap Club", type: "Equity", theme: "Mid cap",
+    universe: "Mid-cap equities", title: "Quantitative research for mid-cap equities.",
+    description: "An equity strategy focused on India's mid-cap companies, with research and tools to support your firm's investment workflow.",
+    lens: "Explore the strategy within the platform and assess its role in your firm's mid-cap mandate.",
+    shape: "mid",
+  },
+  {
+    slug: "small-cap", name: "Small Cap Club", type: "Equity", theme: "Small cap",
+    universe: "Small-cap equities", title: "Quantitative research for small-cap equities.",
+    description: "An equity strategy focused on India's small-cap companies, with supporting research available within the platform.",
+    lens: "Explore the strategy within the platform and assess its role in your firm's small-cap mandate.",
+    shape: "small",
+  },
+  {
+    slug: "multi-cap", name: "Multi Cap Club", type: "Equity", theme: "Across market caps",
+    universe: "Equities across market caps", title: "Equity research across market-cap segments.",
+    description: "An equity strategy spanning India's market-cap segments, supported by research and portfolio tools within the platform.",
+    lens: "Explore the strategy within the platform and assess its role in an equity mandate spanning market-cap segments.",
+    shape: "multi",
+  },
+  {
+    slug: "diversified-funds", name: "Diversified Mutual Fund Club", type: "Mutual funds", theme: "Diversified funds",
+    universe: "Diversified mutual funds", title: "Quantitative research for diversified mutual funds.",
+    description: "A mutual fund strategy supported by research, deployment tools and branded reporting for your firm's fund offering.",
+    lens: "Explore the strategy within the platform and assess how it fits your firm's mutual fund offering.",
+    shape: "funds",
+  },
+  {
+    slug: "sector-rotation", name: "Sector Rotation Club", type: "Mutual funds", theme: "Sector and thematic funds",
+    universe: "Sector & thematic mutual funds", title: "Research for sector and thematic fund allocations.",
+    description: "A mutual fund strategy focused on sectors and themes, with supporting research and portfolio tools within the platform.",
+    lens: "Explore the strategy within the platform and assess its role in your firm's sector and thematic fund offering.",
+    shape: "sector",
+  },
 ];
 
 export const processSteps = [
-  {title:"Define",subtitle:"A clear investment universe",body:"Start with a defined universe and documented eligibility principles. Establish what belongs in the research before considering portfolio construction."},
-  {title:"Evaluate",subtitle:"A consistent research lens",body:"Apply quantitative signals and selection rules within a repeatable framework. Make the purpose of the methodology understandable."},
-  {title:"Construct",subtitle:"A disciplined portfolio structure",body:"Translate the research into an equally weighted model portfolio at its scheduled rebalance, following the strategy’s construction rules."},
-  {title:"Publish",subtitle:"A dated, shared research record",body:"Organise portfolio releases and supporting documents so your team can follow the research and each portfolio’s review schedule."},
+  { title: "Evaluate", subtitle: "Research for your investment process", body: "Review the research and analysis within the platform, then decide how a strategy fits your firm's mandate." },
+  { title: "Deploy", subtitle: "Prepare the work for your team", body: "Apply a strategy to relevant client records and prepare order files for your firm's execution process." },
+  { title: "Maintain", subtitle: "Follow the portfolio over time", body: "Record changes, monitor deviations and keep outstanding actions visible to the people responsible." },
+  { title: "Brand", subtitle: "Keep your firm in the client conversation", body: "Prepare factsheets and review material in your firm's branding, with the supporting information and required disclosures." },
 ];
 
-export type Article = {slug:string;category:string;title:string;dek:string;art:string;status:"draft"|"published";author?:string;publishedAt?:string;sections:{title:string;paragraphs:string[]}[]};
+export type Article = {
+  slug: string;
+  category: string;
+  title: string;
+  dek: string;
+  art: string;
+  status: "draft" | "published";
+  author?: string;
+  publishedAt?: string;
+  sections: { title: string; paragraphs: string[] }[];
+};
 
-// Editorial concepts written for the design preview. These are not claimed as published company articles.
-export const articles:Article[] = [
-  {slug:"the-process-behind-the-portfolio",category:"Research process",title:"The process behind the portfolio.",dek:"Why the questions behind a strategy matter as much as the portfolio it produces.",art:"orbits",status:"draft",sections:[
-    {title:"Begin with the question",paragraphs:["A portfolio is the visible outcome of a research process. Before considering that outcome, it helps to understand the question the strategy is designed to address: which universe does it examine, what is it trying to organise, and what sits outside its scope?","Our approach begins with these definitions. They provide a common language for discussing the research with an advisory team."]},
-    {title:"Make the framework understandable",paragraphs:["A methodology introduction should explain the role of selection, construction and review. It need not expose proprietary parameters to give a useful account of how those stages fit together.","For an adviser, this context supports a more informed conversation about the intended use of the research. A clearly described process also makes its limitations easier to discuss."]},
-    {title:"Keep the record connected",paragraphs:["The methodology, portfolio publication and supporting notes should be easy to find together. A dated document tells the reader which version they are looking at and where it belongs in the research record.","That is the experience we are designing at The Quant Club: a place where the portfolio remains connected to the thinking behind it."]},
-  ]},
-  {slug:"equal-weighting-is-a-design-choice",category:"Portfolio construction",title:"Equal weighting is a design choice.",dek:"A closer look at the role of a clear allocation rule in a systematic portfolio.",art:"grid",status:"draft",sections:[
-    {title:"Define the allocation rule",paragraphs:["A portfolio framework includes both what is selected and how the selected holdings are represented. Equal weighting describes an allocation rule applied at the portfolio’s scheduled construction or rebalance point.","The Quant Club uses equal weighting in its model portfolios. The purpose of explaining that rule is to make the construction process visible to the adviser."]},
-    {title:"Separate construction from selection",paragraphs:["The decision about which holdings belong in a portfolio is distinct from the decision about their starting weights. Describing the two stages separately gives a clearer account of the methodology.","An allocation rule does not replace the need to understand the strategy’s universe, its review process or its limitations."]},
-    {title:"Keep the context with the portfolio",paragraphs:["A dated portfolio should identify the construction convention used. Readers should be able to distinguish a model’s target allocations from any separately observed holdings.","Our public introductions explain the framework. Portfolio-specific information belongs within the appropriate member access level."]},
-  ]},
-  {slug:"publication-is-not-rebalancing",category:"Portfolio construction",title:"A publication date is not a rebalance date.",dek:"Understanding the distinction between a fresh research release and a portfolio’s own review cycle.",art:"paths",status:"draft",sections:[
-    {title:"Different dates have different jobs",paragraphs:["A publication date identifies when a research release becomes available. A rebalance date belongs to the review schedule of a particular portfolio. Treating them as interchangeable can make a portfolio record difficult to follow.","Our product design keeps those concepts separate, so each release can be read in the context of the portfolio it describes."]},
-    {title:"Allow for different starting points",paragraphs:["Advisory firms may begin using a research portfolio at different times. Monthly publications support those different entry points while each portfolio follows its own scheduled review cycle.","A new monthly release does not by itself mean that every existing portfolio is being rebalanced."]},
-    {title:"Build a readable record",paragraphs:["Clear labels help: publication date, applicable portfolio and review schedule each answer a different question. Supporting documents should use the same terminology.","The aim is an organised research history that advisers can interpret without having to reconstruct the sequence from disconnected files."]},
-  ]},
-  {slug:"a-shared-research-language",category:"Adviser practice",title:"Give your team a shared research language.",dek:"How consistent terminology and organised documents support a clearer advisory workflow.",art:"network",status:"draft",sections:[
-    {title:"Start with shared definitions",paragraphs:["A strategy name is a starting point, not a complete description. Teams also need a shared understanding of the investment universe, the portfolio approach and the purpose of each publication.","Consistent language helps colleagues discuss the same research without relying on assumptions about what a term means."]},
-    {title:"Keep context easy to find",paragraphs:["A methodology note, a portfolio release and a general educational article serve different purposes. Organising those materials by role helps readers find the context they need.","A shared workspace should make those distinctions visible while keeping the related material connected."]},
-    {title:"Preserve the adviser’s role",paragraphs:["Research is an input to an advisory practice. Client relationships, suitability decisions and execution remain with the firm.","The Quant Club is being built around that division of responsibilities: focused research tools for professionals who retain their own advisory judgement."]},
-  ]},
-  {slug:"reading-a-strategy-methodology",category:"Research process",title:"What to look for in a methodology note.",dek:"The universe, the construction rule, the review process—and the questions worth asking.",art:"layers",status:"draft",sections:[
-    {title:"Understand the scope",paragraphs:["Begin with the strategy’s stated universe and purpose. A useful introduction tells you what the framework considers and where its boundaries lie.","This context makes subsequent discussion of selection and portfolio construction more precise."]},
-    {title:"Connect the stages",paragraphs:["Look for an explanation of how eligibility, selection, construction and review relate to one another. These stages should read as parts of a coherent process.","Where a description leaves a question open, a research walkthrough is an opportunity to ask for clarification rather than fill the gap with an assumption."]},
-    {title:"Ask about documentation",paragraphs:["The research record should distinguish general methodology from portfolio-specific information. It should also make the relevant version or publication context understandable.","We want those conversations to be accessible: begin with the framework, understand its limits, then explore the information available through the appropriate access level."]},
-  ]},
-  {slug:"research-and-technology",category:"Adviser practice",title:"Where research meets a better workflow.",dek:"The thinking behind a platform that connects investment ideas with the way advisory teams work.",art:"signal",status:"draft",sections:[
-    {title:"Begin with the research task",paragraphs:["Technology has a useful role when it makes the research process easier to understand and follow. For an advisory team, that can begin with a simple task: finding the current document and knowing what it describes.","Our platform design starts with those practical research needs rather than adding features without a defined purpose."]},
-    {title:"Design for the whole team",paragraphs:["A shared view of strategy information and publication updates gives colleagues a common starting point. Clear navigation and meaningful labels help preserve the context as they move between documents.","The interface should support the research, with each screen explaining what is being shown and how it relates to the strategy."]},
-    {title:"Keep the boundaries clear",paragraphs:["Public education, member research and the firm’s own client decisions serve different roles. The product should make those boundaries understandable.","That is our direction for The Quant Club: quantitative research, delivered through a platform designed around the advisory practice."]},
-  ]},
+// Educational drafts. Publication requires an editorial decision; no byline or date is implied.
+export const articles: Article[] = [
+  {
+    slug: "the-process-behind-the-portfolio", category: "Investment practice",
+    title: "From research review to a working portfolio",
+    dek: "The hand-offs an investment team needs to make research useful in practice.",
+    art: "orbits", status: "draft",
+    sections: [
+      { title: "Establish the purpose", paragraphs: ["Begin by recording the role a strategy is expected to play within the firm's mandate. Identify who reviews the research, who approves its use and which questions must be answered before a portfolio is implemented."] },
+      { title: "Prepare the implementation", paragraphs: ["A research decision needs an operational hand-off. The team carrying it out needs the relevant instructions, the accounts affected and a record of any exceptions. An order file is an input to that process; it is not evidence that the trades occurred."] },
+      { title: "Close the loop", paragraphs: ["After implementation, compare the intended change with the recorded outcome. Keep partial execution, deliberate skips and outstanding actions visible. A useful research workflow continues beyond the initial decision and preserves the context needed for the next portfolio review."] },
+    ],
+  },
+  {
+    slug: "equal-weighting-is-a-design-choice", category: "Portfolio operations",
+    title: "Target allocations and recorded holdings",
+    dek: "Why an allocation instruction and an investment record serve different purposes.",
+    art: "grid", status: "draft",
+    sections: [
+      { title: "Separate the instruction from the outcome", paragraphs: ["A target allocation describes an intended portfolio. Recorded holdings describe what a particular account actually contains. Keeping the two separate helps a team identify whether a proposed change has been fully carried out."] },
+      { title: "Keep the account context", paragraphs: ["Clients may invest different amounts, add money at different times or withdraw part of an investment. Their records therefore need the relevant dates and quantities. An instruction prepared for one account should not be assumed to apply unchanged to another."] },
+      { title: "Confirm before reporting", paragraphs: ["Use execution records and subsequent transactions to maintain the account view. If information is incomplete, identify the gap before calculating changes or preparing a client review. Reports are easier to interpret when the reader can see the date, record type and information on which they are based."] },
+    ],
+  },
+  {
+    slug: "publication-is-not-rebalancing", category: "Portfolio operations",
+    title: "A research update and a portfolio action",
+    dek: "Give every date and instruction a clear role in the team's workflow.",
+    art: "paths", status: "draft",
+    sections: [
+      { title: "Read the purpose of the update", paragraphs: ["A publication date identifies when a document was released. It does not, by itself, establish when a portfolio action is required. Read the update's purpose, effective date and applicable instructions before assigning work to the team."] },
+      { title: "Follow the relevant schedule", paragraphs: ["Review and rebalance schedules can differ between strategies. Use the schedule attached to the relevant strategy and portfolio record. Keep any exceptions with the original instruction so colleagues can understand why the action taken differed."] },
+      { title: "Record what happened", paragraphs: ["Separate the date an instruction was issued from the date it was implemented. Record incomplete actions and deliberate skips as well as completed work. This makes the next review more useful: the team can discuss an observed difference without first reconstructing which update applied and whether it was carried out."] },
+    ],
+  },
+  {
+    slug: "a-shared-research-language", category: "Adviser practice",
+    title: "Give your team a shared investment record",
+    dek: "Clear ownership and consistent labels help colleagues work from the same context.",
+    art: "network", status: "draft",
+    sections: [
+      { title: "Name the record", paragraphs: ["A research document, a model instruction and a client account record answer different questions. Label each clearly, including its relevant date. A colleague should be able to identify what they are reading without relying on the person who prepared it."] },
+      { title: "Make ownership visible", paragraphs: ["For each action, identify the person responsible and the information required to complete it. If the action is paused, record the reason and the next step. A visible exception gives the team something to resolve rather than an assumption to carry forward."] },
+      { title: "Preserve the decision", paragraphs: ["Keep the team's conclusion alongside the records it reviewed. Note unresolved questions and the reason for any departure from the original instruction. This gives colleagues a useful starting point at the next review and helps maintain continuity when responsibility changes."] },
+    ],
+  },
+  {
+    slug: "reading-a-strategy-methodology", category: "Research evaluation",
+    title: "Questions to bring to a research evaluation",
+    dek: "Prepare the questions that help your team assess research and its intended use.",
+    art: "layers", status: "draft",
+    sections: [
+      { title: "Clarify the mandate", paragraphs: ["Start with your firm's purpose for considering the research. Establish the investment scope, the decisions the research will support and the people responsible for evaluating it. A clear mandate makes it easier to identify which information is relevant."] },
+      { title: "Examine the evidence", paragraphs: ["Ask about data sources, the period covered and the assumptions accompanying an analysis. Distinguish simulated history from live observations. When reviewing audited material, understand the scope of the audit and which records it covers."] },
+      { title: "Consider the operational fit", paragraphs: ["Research also needs to fit the way your firm works. Ask how updates are delivered, how the relevant review schedule is identified and what information supports implementation and client reporting. Record unanswered questions so the next conversation resolves them before your team makes its decision."] },
+    ],
+  },
+  {
+    slug: "research-and-technology", category: "Client communication",
+    title: "A clearer workflow for client reviews",
+    dek: "Connect the portfolio record with the material your firm puts in front of a client.",
+    art: "signal", status: "draft",
+    sections: [
+      { title: "Begin with the right record", paragraphs: ["A useful review starts with the correct account information and reporting period. Check that recent transactions and outstanding actions are reflected in the record before preparing the document. Clearly identify the date to which the information applies."] },
+      { title: "Keep the firm's voice consistent", paragraphs: ["Consistent branding helps a client recognise material from their firm. The document also needs clear labels, relevant context and the required disclosures. Presentation should make the information easier to understand without changing what it represents."] },
+      { title: "Prepare for the conversation", paragraphs: ["Record the points the adviser needs to discuss and any follow-up work. A review document provides a common reference; the conversation gives the client an opportunity to ask questions. Keep the resulting actions connected to the account record so the next review can follow what happened."] },
+    ],
+  },
 ];
 
 export const commonQuestions = [
-  ["Who is The Quant Club built for?","Registered investment advisers and their teams looking for a systematic research framework to support their advisory practice."],
-  ["Where can I see strategy figures?","The public website does not show strategy figures, holdings or performance charts. Approved members will see only the permitted live data and information after signing in."],
-  ["What happens in a strategy walkthrough?","We discuss your firm’s research needs, introduce the strategy universes and explain the portfolio process and workspace."],
-  ["Does monthly publication mean monthly rebalancing?","No. A new portfolio is published each month for different entry dates. Each portfolio follows its own scheduled rebalance cycle."],
-  ["Do you manage clients or execute trades?","The platform provides research and model portfolios. Client management, suitability decisions and execution remain with the advisory firm."],
+  ["Who is The Quant Club built for?", "Investment advisers, mutual fund distributors, wealth management teams and investment institutions. We bring quantitative research, strategy deployment, portfolio maintenance and branded reporting into the firm's investment workflow."],
+  ["Which data sources do you use?", "Our research uses data from NSE, AMFI, Morningstar and other paid data tools."],
+  ["Are your backtests and research data audited?", "All our backtests and research data are audited by a Chartered Accountant (CA) firm. The research data and supporting information are available within the platform."],
+  ["How is your live data tracked?", "Our live data is tracked through PaRRVA. Live records are kept distinct from backtested research within the platform."],
+  ["Where can I see model information and holdings?", "Model information, holdings, research data, backtests and strategy analytics are available within the SaaS platform, subject to your firm's access. The public website introduces the services and strategy range."],
+  ["How often do strategies rebalance?", "Rebalance schedules vary by strategy. The relevant schedule and updates are provided within the platform so your team can plan and follow the required actions."],
+  ["Can the reports carry our firm's branding?", "Yes. Your firm can apply its logo, name, colours and contact details to factsheets and client review material. The research information and required disclosures remain part of the documents."],
+  ["Does the platform execute trades?", "The platform prepares model-level, client-specific and consolidated order files and supports execution records and follow-up. Your firm executes through its chosen broker or fund platform and records the outcome."],
+  ["How does the platform support client management?", "Use client reference tags to organise strategy allocations, recorded holdings, investment flows and review activity. Your firm retains the client identity mapping and the client relationship."],
+  ["What happens in a walkthrough?", "We discuss your firm's investment workflow, relevant strategies, deployment needs and reporting requirements, then walk through how the platform can support your team."],
 ];

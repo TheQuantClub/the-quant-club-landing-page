@@ -1,71 +1,84 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
-import { useEffect, useRef, useState, type KeyboardEvent } from "react";
-import { ArrowDown, ArrowRight, ArrowUpRight, Check, ChevronRight, LockKeyhole, MoveUpRight, Pause, Play } from "lucide-react";
-import { publicStrategies, articles } from "@/lib/public-content";
-import { strategyStories, audienceStories } from "@/lib/strategy-story";
-import { StrategyVisual } from "./strategy-visual";
-import { FlowRibbons } from "./flow-ribbons";
-import { ResearchProblems } from "./research-problems";
-import { StrategyCharacterArt } from "./strategy-character-art";
+import { useState } from "react";
+import { ArrowDown, ArrowRight, ArrowUpRight, Plus } from "lucide-react";
+import { articles, commonQuestions } from "@/lib/public-content";
+import { homeAudiences } from "@/lib/business-content";
+import { BusinessOrbit } from "./business-orbit";
+import { ResearchProblems, ResearchSolutions } from "./research-problems";
 
-function useReveals() {
-  const root = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const elements = root.current?.querySelectorAll<HTMLElement>(".q-reveal");
-    if (!elements || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add("q-seen"); observer.unobserve(entry.target); } });
-    }, { threshold: 0.08 });
-    elements.forEach(element => { element.classList.add("q-prepare"); observer.observe(element); });
-    return () => observer.disconnect();
-  }, []);
-  return root;
+export function StrategyCTA() {
+  const destination = process.env.NEXT_PUBLIC_WALKTHROUGH_URL || "/walkthrough";
+  return (
+    <section className="tqc-closing" aria-labelledby="closing-title">
+      <div className="tqc-container tqc-closing-inner">
+        <div><p className="tqc-eyebrow">BRING IT INTO YOUR PRACTICE</p><h2 id="closing-title">See where The Quant Club<br />fits into your firm.</h2><p>Walk through the research, deployment workflow, portfolio maintenance, and documents carrying your brand.</p></div>
+        <Link className="tqc-button tqc-button-light" href={destination}>Book a walkthrough <ArrowUpRight size={19} /></Link>
+      </div>
+      <div className="tqc-closing-rings" aria-hidden="true"><i /><i /><i /></div>
+    </section>
+  );
 }
 
-function StrategyExplorer() {
-  const [active,setActive] = useState(0);
-  const [artPaused,setArtPaused] = useState(false);
-  const strategy = publicStrategies[active];
-  const story = strategyStories[strategy.slug as keyof typeof strategyStories];
-  function moveTab(event:KeyboardEvent<HTMLButtonElement>,index:number) {
-    let next=index;
-    if (["ArrowDown","ArrowRight"].includes(event.key)) next=(index+1)%publicStrategies.length;
-    else if (["ArrowUp","ArrowLeft"].includes(event.key)) next=(index+publicStrategies.length-1)%publicStrategies.length;
-    else if (event.key==="Home") next=0;
-    else if (event.key==="End") next=publicStrategies.length-1;
-    else return;
-    event.preventDefault();setActive(next);document.getElementById(`q-strategy-tab-${next}`)?.focus();
-  }
-  return <section className="q-explorer" id="strategy-explorer"><div className="q-container">
-    <div className="q-section-heading q-reveal"><div><p className="q-label">THE STRATEGIES</p><h2>Different ways to invest.<br/><span>The research comes first.</span></h2></div><p>Start with the part of the market you want to understand. Explore the strategy behind the portfolio.</p></div>
-    <div className="q-strategy-workbench q-reveal"><div className="q-strategy-tabs" role="tablist" aria-label="Explore our strategies" aria-orientation="vertical">{publicStrategies.map((s,i)=><button key={s.slug} id={`q-strategy-tab-${i}`} role="tab" aria-selected={active===i} aria-controls="q-strategy-panel" tabIndex={active===i?0:-1} onClick={()=>setActive(i)} onKeyDown={e=>moveTab(e,i)}><span className="q-tab-dot"/><span><small>Quant x</small>{s.name}</span><ArrowUpRight size={18}/></button>)}</div>
-      <div id="q-strategy-panel" role="tabpanel" aria-labelledby={`q-strategy-tab-${active}`} tabIndex={0} className="q-strategy-panel"><div key={strategy.slug} className="q-panel-content"><div className="q-panel-top"><span>{strategy.type}</span><span>{strategy.universe}</span></div><div className="q-panel-story"><div><p className="q-label">{story.eyebrow}</p><h3>Quant x<br/>{strategy.name}</h3><p className="q-panel-description">{story.description}</p></div><div className="q-panel-art-slot"><StrategyCharacterArt variant={strategy.shape} tone="dark" paused={artPaused}/></div></div><div className="q-strategy-facts"><div><small>THE INVESTMENT LENS</small><p>{story.use}</p></div><div><small>PORTFOLIO CONSTRUCTION</small><p>Equal weight at construction<br/>and scheduled rebalance.</p></div></div><div className="q-panel-bottom"><Link href={`/strategies/${strategy.slug}`} className="q-button q-button-light">Explore this strategy<ArrowUpRight size={17}/></Link><span><LockKeyhole size={13}/>Portfolio data stays in member access.</span></div></div></div>
-    </div><div className="q-explorer-foot"><span>Indian equities & mutual funds</span><div className="q-explorer-tools"><button className="q-explorer-motion" onClick={()=>setArtPaused(!artPaused)} aria-pressed={artPaused} aria-label={artPaused?"Play strategy animations":"Pause strategy animations"}>{artPaused?<Play size={12}/>:<Pause size={12}/>} {artPaused?"Play animations":"Pause animations"}</button><Link href="/strategies">See the complete strategy collection<ArrowRight size={16}/></Link></div></div>
-  </div></section>;
+function AudienceSection() {
+  return (
+    <section className="tqc-audiences tqc-section" id="who-we-serve" aria-labelledby="audience-title"><div className="tqc-container">
+      <div className="tqc-section-heading"><div><p className="tqc-eyebrow">05 / WHO WE SERVE</p><h2 id="audience-title">Built for the people<br />putting strategies to work.</h2></div><p>From the first client allocation to the next review, bring research and day-to-day work together.</p></div>
+      <div className="tqc-audience-grid">{homeAudiences.map((audience, index) => <article className="tqc-audience-card" key={audience.id}>
+        <div className="tqc-card-top"><span>{audience.name}</span><span className="tqc-card-number">0{index + 1}</span></div>
+        <h3>{audience.title}</h3><p>{audience.copy}</p>
+        <ul>{audience.actions.map(action => <li key={action}><span aria-hidden="true" />{action}</li>)}</ul>
+        <Link className="tqc-text-link" href={`/institutions#${audience.id}`}>Explore your workflow <ArrowUpRight size={17} /></Link>
+      </article>)}</div>
+    </div></section>
+  );
 }
 
-function AudienceUses() {
-  const [active,setActive]=useState(0);
-  const audience=audienceStories[active];
-  return <section className="q-audiences"><div className="q-container"><div className="q-section-heading q-reveal"><div><p className="q-label">WHERE THE RESEARCH FITS</p><h2>Your practice.<br/>A strategy you can explain.</h2></div><p>The research has a different job in every firm. Here is how it can fit into yours.</p></div><div className="q-audience-layout q-reveal"><div className="q-audience-tabs" aria-label="Choose your type of firm">{audienceStories.map((a,i)=><button key={a.id} aria-pressed={active===i} onClick={()=>setActive(i)}>{a.name}<ArrowUpRight size={19}/></button>)}<Link href="/institutions">Explore use cases in detail<ArrowRight size={15}/></Link></div><div className="q-audience-content" key={audience.id}><p className="q-audience-intro">{audience.intro}</p><ul>{audience.uses.map(use=><li key={use}><Check size={17}/>{use}</li>)}</ul><div className="q-audience-strategies"><span>START EXPLORING</span>{audience.strategies.map(slug=>{const strategy=publicStrategies.find(s=>s.slug===slug);return strategy?<Link key={slug} href={`/strategies/${slug}`}>{strategy.name}<ArrowUpRight size={12}/></Link>:null;})}</div></div></div></div></section>;
+export function ByteArtwork({ variant = 0 }: { variant?: number }) {
+  return <div className={`tqc-byte-art tqc-byte-art-${variant % 3}`} aria-hidden="true"><div className="tqc-byte-shape"><i /><i /><i /><i /><i /><i /></div><span>THE QUANT BYTES</span><ArrowUpRight size={24} /></div>;
 }
 
-export function StrategyCTA(){return <section className="q-final-cta"><div className="q-cta-orbit" aria-hidden="true">{Array.from({length:9},(_,i)=><i key={i} style={{"--ring":i} as React.CSSProperties}/>)}</div><div className="q-container"><div><p className="q-label">LET’S START WITH THE RESEARCH</p><h2>Get to know the strategy.<br/><span>Then decide.</span></h2><p>Walk through the methodology, the portfolio structure and how the research would fit your firm.</p></div><Link href="/walkthrough" className="q-button q-button-light">Book a strategy walkthrough<ArrowUpRight size={19}/></Link></div></section>;}
+function BytesSection() {
+  return (
+    <section className="tqc-bytes tqc-section" aria-labelledby="bytes-title"><div className="tqc-container">
+      <div className="tqc-section-heading"><div><p className="tqc-eyebrow">06 / IDEAS FOR YOUR PRACTICE</p><h2 id="bytes-title">The Quant Bytes.</h2><p className="tqc-heading-subtitle">A clearer view of research, discipline, and the work around investing.</p></div><Link href="/research" className="tqc-text-link">Explore The Quant Bytes <ArrowUpRight size={18} /></Link></div>
+      <div className="tqc-bytes-grid">{articles.slice(0, 3).map((article, index) => <Link className="tqc-byte-card" href={`/research/${article.slug}`} key={article.slug}>
+        <ByteArtwork variant={index} />
+        <div className="tqc-byte-meta"><span>{article.category}</span><span>{article.status === "draft" ? "Editorial preview" : article.publishedAt}</span></div>
+        <h3>{article.title}</h3><p>{article.dek}</p>
+        <span className="tqc-text-link">{article.status === "draft" ? "Read preview" : "Read article"} <ArrowRight size={18} /></span>
+      </Link>)}</div>
+    </div></section>
+  );
+}
+
+export function HomeFAQ() {
+  return (
+    <section className="tqc-faq tqc-section" id="questions" aria-labelledby="faq-title"><div className="tqc-container tqc-faq-layout">
+      <div><p className="tqc-eyebrow">07 / QUESTIONS, ANSWERED</p><h2 id="faq-title">Know what stands<br />behind the work.</h2><p>Our data, the research record, and what your firm can expect.</p><Link className="tqc-text-link" href="/walkthrough">Talk through your questions <ArrowUpRight size={18} /></Link></div>
+      <div className="tqc-faq-list">{commonQuestions.map(([question, answer]) => <details key={question}><summary>{question}<Plus size={20} aria-hidden="true" /></summary><p>{answer}</p></details>)}</div>
+    </div></section>
+  );
+}
 
 export function StrategyHome() {
-  const root=useReveals();
-  const [heroPaused,setHeroPaused]=useState(false);
-  return <div className="q-home" ref={root}>
-    <section className={`q-hero${heroPaused?" q-hero-paused":""}`}><FlowRibbons/><div className="q-hero-grid" aria-hidden="true"/><div className="q-container q-hero-inner"><div className="q-hero-copy"><p className="q-label"><span className="q-pulse-dot"/>THE QUANT CLUB / INVESTMENT RESEARCH</p><h1>Investment intelligence built on <em>quants,</em><br/><span>not opinions.</span></h1><p className="q-hero-description">Equity and mutual fund strategies for investment professionals. Understand the method. Choose your strategy. Put the research to work.</p><div className="q-hero-actions"><a href="#strategy-explorer" className="q-button">Find your strategy<ArrowDown size={17}/></a><Link href="/walkthrough" className="q-text-link">Book a walkthrough<ArrowUpRight size={17}/></Link></div><div className="q-hero-proof"><span>Rules-based selection</span><span>Equal-weight portfolios</span><span>Monthly publications</span></div></div><div className="q-hero-art"><StrategyVisual onMotionChange={setHeroPaused}/></div></div><div className="q-hero-bottom q-container"><a href="#why-quant-club">EXPLORE THE THINKING<ArrowDown size={14}/></a><p>Research for registered investment advisers & professional investment teams.</p></div></section>
-    <ResearchProblems/>
-    <StrategyExplorer/>
-    <section className="q-belief q-container"><div className="q-belief-mark" aria-hidden="true">*</div><p className="q-label q-reveal">A PROCESS FOR AN UNCERTAIN MARKET</p><h2 className="q-reveal">We cannot tell you<br/><span>what happens next.</span></h2><p className="q-belief-answer q-reveal">We give you a researched strategy<br/>for deciding <em>what to do next.</em></p><div className="q-belief-line" aria-hidden="true"><i/><span>RESEARCH</span><ChevronRight size={12}/><span>PORTFOLIO</span><ChevronRight size={12}/><span>REVIEW</span><i/></div></section>
-    <section className="q-delivery"><div className="q-container"><div className="q-section-heading q-reveal"><div><p className="q-label">WHAT THE SUBSCRIPTION IS FOR</p><h2>More time with the research.<br/><span>Less time piecing it together.</span></h2></div><Link href="/platform" className="q-text-link">Inside the platform<ArrowUpRight size={18}/></Link></div><div className="q-delivery-grid q-reveal">{[{title:"Understand the method.",tag:"METHODOLOGY",copy:"Read what the strategy invests in, how the portfolio is constructed and when it is reviewed.",art:"method"},{title:"Find the right publication.",tag:"MODEL PORTFOLIOS",copy:"Keep dated portfolio releases and review schedules together, so your team knows which publication it is using.",art:"portfolio"},{title:"Keep the team in step.",tag:"SHARED RESEARCH",copy:"Give the firm a common research workspace. Receive a combined email when the monthly strategy publications are ready.",art:"team"}].map(({title,tag,copy,art})=><article key={tag}><div className={`q-delivery-art q-delivery-art-${art}`} aria-hidden="true">{Array.from({length:5},(_,i)=><i key={i} style={{"--n":i} as React.CSSProperties}/>)}</div><span className="q-label">{tag}</span><h3>{title}</h3><p>{copy}</p></article>)}</div></div></section>
-    <AudienceUses/>
-    <section className="q-journal q-container"><div className="q-section-heading q-reveal"><div><p className="q-label">THE QUANT JOURNAL</p><h2>The thinking behind<br/><span>the portfolio.</span></h2></div><Link href="/research" className="q-text-link">Read the journal<ArrowUpRight size={18}/></Link></div><div className="q-journal-grid q-reveal">{articles.slice(0,3).map((article,i)=><Link href={`/research/${article.slug}`} key={article.slug} className="q-journal-card"><div className={`q-journal-art q-journal-art-${i}${i<2?" q-journal-art-generated":""}`} aria-hidden="true">{i<2?<Image src={i===0?"/artwork/research-ribbon.png":"/artwork/equal-weight-matrix.png"} alt="" fill sizes="(max-width: 650px) 110px, (max-width: 960px) 30vw, 420px"/>:Array.from({length:14},(_,j)=><i key={j} style={{"--n":j} as React.CSSProperties}/>)}</div><div className="q-journal-meta"><span>{article.category}</span><span>Sample article</span></div><h3>{article.title}</h3><span className="q-journal-read">Read the perspective<MoveUpRight size={18}/></span></Link>)}</div></section>
-    <StrategyCTA/>
-  </div>;
+  const [selectedScene, setSelectedScene] = useState(0);
+  const destination = process.env.NEXT_PUBLIC_WALKTHROUGH_URL || "/walkthrough";
+  return (
+    <div className="tqc-home">
+      <section className="tqc-hero" aria-labelledby="hero-title"><div className="tqc-container">
+        <div className="tqc-hero-topline"><p className="tqc-eyebrow"><span /> FOR INVESTMENT ADVISERS & WEALTH TEAMS</p><span className="tqc-hero-edition">RESEARCH MEETS PRACTICE</span></div>
+        <h1 id="hero-title"><span>Let rules guide the strategy.</span><span>Let your brand lead<br className="tqc-hero-break" /> the relationship.</span></h1>
+        <div className="tqc-hero-bottom"><div><p className="tqc-hero-description">Quantitative research, strategy deployment, portfolio maintenance, and client reporting in your firm’s brand. Connected in one professional platform.</p><div className="tqc-hero-actions"><Link href={destination} className="tqc-button">Book a walkthrough <ArrowUpRight size={19} /></Link><Link href="/platform" className="tqc-text-link">Explore the platform <ArrowRight size={18} /></Link></div></div>
+          <div className="tqc-hero-signature" aria-hidden="true"><div className="tqc-signature-rings"><i /><i /><i /><b /></div><p>YOUR RESEARCH.<br />YOUR WORKFLOW.<br /><strong>YOUR BRAND.</strong></p></div>
+        </div>
+        <a className="tqc-scroll-cue" href="#what-we-do"><span>THE FULL PICTURE</span><ArrowDown size={17} /></a>
+      </div></section>
+      <BusinessOrbit />
+      <ResearchProblems selectedScene={selectedScene} onSceneChange={setSelectedScene} />
+      <ResearchSolutions selectedScene={selectedScene} onSceneChange={setSelectedScene} />
+      <AudienceSection /><BytesSection /><HomeFAQ /><StrategyCTA />
+    </div>
+  );
 }
