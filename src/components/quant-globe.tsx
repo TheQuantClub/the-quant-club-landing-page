@@ -28,14 +28,18 @@ export function QuantGlobe({ paused, tone = "light" }: { paused: boolean; tone?:
     const dark = tone === "dark";
     const colours = dark ? {
       atmosphereInner: "rgba(37,99,235,.2)", atmosphereMiddle: "rgba(6,182,212,.1)", atmosphereOuter: "rgba(6,182,212,0)",
+      orbitFront: "rgba(6,182,212,.78)", orbitBack: "rgba(37,99,235,.32)",
       meridianAccent: "rgba(6,182,212,.76)", meridianFront: "rgba(255,255,255,.32)", meridianBack: "rgba(37,99,235,.23)",
       latitudeAccent: "rgba(6,182,212,.72)", latitude: "rgba(255,255,255,.18)",
       nodeGlow: "rgba(6,182,212,.09)", nodeAccent: "6,182,212", nodeBase: "255,255,255",
+      satellite: "#ffffff", satelliteRing: "rgba(6,182,212,.5)",
     } : {
       atmosphereInner: "rgba(95,176,255,.14)", atmosphereMiddle: "rgba(156,213,255,.12)", atmosphereOuter: "rgba(225,243,255,0)",
+      orbitFront: "rgba(37,99,235,.52)", orbitBack: "rgba(37,99,235,.16)",
       meridianAccent: "rgba(0,149,207,.58)", meridianFront: "rgba(37,99,235,.32)", meridianBack: "rgba(65,123,223,.085)",
       latitudeAccent: "rgba(6,182,212,.48)", latitude: "rgba(37,99,235,.15)",
       nodeGlow: "rgba(33,101,232,.045)", nodeAccent: "6,170,204", nodeBase: "37,99,235",
+      satellite: "#2165e8", satelliteRing: "rgba(33,101,232,.2)",
     };
     let width = 600, height = 600, frame = 0, lastTime = 0, phase = .5, visible = true;
 
@@ -53,6 +57,17 @@ export function QuantGlobe({ paused, tone = "light" }: { paused: boolean; tone?:
       const atmosphere = ctx.createRadialGradient(cx - radius * .2, cy - radius * .2, radius * .12, cx, cy, radius * 1.45);
       atmosphere.addColorStop(0, colours.atmosphereInner); atmosphere.addColorStop(.65, colours.atmosphereMiddle); atmosphere.addColorStop(1, colours.atmosphereOuter);
       ctx.fillStyle = atmosphere; ctx.fillRect(0, 0, width, height);
+
+      const orbitPoint = (a: number) => turn({ x: Math.cos(a) * 1.38, y: Math.sin(a) * .42, z: Math.sin(a) * 1.3 }, -.4);
+      function orbit(front: boolean) {
+        ctx.beginPath(); let drawing = false;
+        for (let i = 0; i <= 160; i++) {
+          const p = orbitPoint(i / 160 * TAU), q = project(p);
+          if ((p.z >= 0) === front) { if (!drawing) ctx.moveTo(q.x, q.y); else ctx.lineTo(q.x, q.y); drawing = true; } else drawing = false;
+        }
+        ctx.strokeStyle = front ? colours.orbitFront : colours.orbitBack; ctx.lineWidth = front ? 1.2 : .8; ctx.stroke();
+      }
+      orbit(false);
 
       // Woven meridians retain the depth and movement of the original artwork.
       const ribs = width < 420 ? 38 : 52;
@@ -84,6 +99,10 @@ export function QuantGlobe({ paused, tone = "light" }: { paused: boolean; tone?:
         if (p.z > .4) { ctx.beginPath(); ctx.arc(q.x, q.y, 8, 0, TAU); ctx.fillStyle = colours.nodeGlow; ctx.fill(); }
         ctx.beginPath(); ctx.arc(q.x, q.y, p.z < 0 ? 1.35 : 2.2 + p.z * .8, 0, TAU); ctx.fillStyle = `rgba(${i % 9 === 0 ? colours.nodeAccent : colours.nodeBase},${alpha})`; ctx.fill();
       }
+      orbit(true);
+      const satellite = project(orbitPoint(-phase * 1.3));
+      ctx.beginPath(); ctx.arc(satellite.x, satellite.y, 5, 0, TAU); ctx.fillStyle = colours.satellite; ctx.fill();
+      ctx.beginPath(); ctx.arc(satellite.x, satellite.y, 11, 0, TAU); ctx.strokeStyle = colours.satelliteRing; ctx.lineWidth = 1; ctx.stroke();
       if (!pausedRef.current) frame = requestAnimationFrame(draw);
     }
     function start() { if (!frame && visible && !document.hidden) frame = requestAnimationFrame(draw); }

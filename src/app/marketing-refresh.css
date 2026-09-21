@@ -320,6 +320,9 @@
 .mk-stage-title{position:relative;z-index:1;padding:10px 0 16px}
 .mk-stage-title>span{font-size:11px;color:#7ba4c4;letter-spacing:.015em}
 .mk-stage-title h2{font-size:clamp(30px,3.05vw,43px);line-height:1.17;margin-top:16px;color:#e9f4fe;letter-spacing:-.05em;max-width:310px}
+.mk-strategy-risk{display:grid;gap:6px;margin:23px 0 0;padding:2px 0 2px 13px;border-left:2px solid #6ccce4;max-width:100%}
+.mk-strategy-risk dt{font-size:10px;line-height:1.5;letter-spacing:.06em;color:#8abae2}
+.mk-strategy-risk dd{margin:0;font-size:14px;line-height:1.5;font-weight:500;color:#e9f4fe;overflow-wrap:anywhere}
 .mk-stage-sculpture{min-width:0;margin:0 -15px 0 -10px}
 .mk-stage-sculpture .sc-art{border:0;border-radius:0;aspect-ratio:520/430;background:#091f33}
 .mk-stage-sculpture .sc-art>svg{transform:scale(1.1)}

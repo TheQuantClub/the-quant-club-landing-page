@@ -4,6 +4,10 @@
 .mk-site[data-opening-tone="dark"] > main { padding-top: 0; }
 .mk-site .tqc-hero--gradient { padding-top: var(--mk-header-height); }
 .mk-site .mk-strategy-detail-hero { padding-top: calc(var(--mk-header-height) + 30px); }
+@media (min-width: 701px) {
+  .mk-site .tqc-hero--gradient .tqc-hero-stage { min-height: 0; padding-block: 32px 28px; }
+  .mk-site .tqc-hero--gradient .tqc-hero-story { align-self: start; padding-top: 0; }
+}
 .mk-header {
   position: fixed;
   inset: 0 0 auto;

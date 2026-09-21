@@ -1,45 +1,59 @@
-export const publicStrategies = [
+export type PublicStrategy = {
+  slug: string;
+  name: string;
+  type: string;
+  theme: string;
+  universe: string;
+  title: string;
+  description: string;
+  lens: string;
+  shape: string;
+  riskLevel: string | null;
+};
+
+// Populate riskLevel only with the firm's assigned classification.
+export const publicStrategies: PublicStrategy[] = [
   {
     slug: "large-cap", name: "Large Cap Club", type: "Equity", theme: "Large cap",
     universe: "Large-cap equities", title: "Quantitative research for large-cap equities.",
     description: "An equity strategy focused on India's large-cap companies, supported by research and portfolio tools within the platform.",
     lens: "Explore the strategy within the platform and assess its role in your firm's large-cap mandate.",
-    shape: "large",
+    shape: "large", riskLevel: null,
   },
   {
     slug: "mid-cap", name: "Mid Cap Club", type: "Equity", theme: "Mid cap",
     universe: "Mid-cap equities", title: "Quantitative research for mid-cap equities.",
     description: "An equity strategy focused on India's mid-cap companies, with research and tools to support your firm's investment workflow.",
     lens: "Explore the strategy within the platform and assess its role in your firm's mid-cap mandate.",
-    shape: "mid",
+    shape: "mid", riskLevel: null,
   },
   {
     slug: "small-cap", name: "Small Cap Club", type: "Equity", theme: "Small cap",
     universe: "Small-cap equities", title: "Quantitative research for small-cap equities.",
     description: "An equity strategy focused on India's small-cap companies, with supporting research available within the platform.",
     lens: "Explore the strategy within the platform and assess its role in your firm's small-cap mandate.",
-    shape: "small",
+    shape: "small", riskLevel: null,
   },
   {
     slug: "multi-cap", name: "Multi Cap Club", type: "Equity", theme: "Across market caps",
     universe: "Equities across market caps", title: "Equity research across market-cap segments.",
     description: "An equity strategy spanning India's market-cap segments, supported by research and portfolio tools within the platform.",
     lens: "Explore the strategy within the platform and assess its role in an equity mandate spanning market-cap segments.",
-    shape: "multi",
+    shape: "multi", riskLevel: null,
   },
   {
     slug: "diversified-funds", name: "Diversified Mutual Fund Club", type: "Mutual funds", theme: "Diversified funds",
     universe: "Diversified mutual funds", title: "Quantitative research for diversified mutual funds.",
     description: "A mutual fund strategy supported by research, implementation tools and reports carrying your firm's identity.",
     lens: "Explore the strategy within the platform and assess how it fits your firm's mutual fund offering.",
-    shape: "funds",
+    shape: "funds", riskLevel: null,
   },
   {
     slug: "sector-rotation", name: "Sector Rotation Club", type: "Mutual funds", theme: "Sector and thematic funds",
     universe: "Sector & thematic mutual funds", title: "Research for sector and thematic fund allocations.",
     description: "A mutual fund strategy focused on sectors and themes, with supporting research and portfolio tools within the platform.",
     lens: "Explore the strategy within the platform and assess its role in your firm's sector and thematic fund offering.",
-    shape: "sector",
+    shape: "sector", riskLevel: null,
   },
 ];
 
