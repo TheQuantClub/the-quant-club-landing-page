@@ -31,7 +31,7 @@ export function ByteArtwork({ variant = 0 }: { variant?: number }) {
 
 function BytesSection() {
   return (
-    <section className="tqc-bytes tqc-section tqc-brand-section" aria-labelledby="bytes-title"><BrandBackdrop variant="flow" /><div className="tqc-container">
+    <section className="tqc-bytes tqc-section tqc-brand-section" aria-labelledby="bytes-title"><BrandBackdrop variant="flow" scene="research" /><div className="tqc-container">
       <div className="tqc-section-heading"><div><p className="tqc-eyebrow">IDEAS FOR YOUR PRACTICE</p><h2 id="bytes-title">The Quant Bytes.</h2><p className="tqc-heading-subtitle">A clearer view of research, discipline, and the work around investing.</p></div><Link href="/research" className="tqc-text-link">Explore The Quant Bytes <ArrowUpRight size={18} /></Link></div>
       <div className="tqc-bytes-grid">{articles.slice(0, 3).map((article, index) => <Link className="tqc-byte-card" href={`/research/${article.slug}`} key={article.slug}>
         <ByteArtwork variant={index} />

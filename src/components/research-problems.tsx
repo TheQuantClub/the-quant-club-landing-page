@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState, type CSSProperties, type ReactNode 
 import { ArrowRight, Check, FileText, Fingerprint, HeartPulse, ListChecks, RotateCcw, SlidersHorizontal, Users } from "lucide-react";
 import { QuantLogo } from "./logo";
 import { BrandBackdrop } from "./brand-backdrop";
+import { useReducedMotion } from "@/lib/use-reduced-motion";
 
 const scenes = [
   {
@@ -79,7 +80,7 @@ function SceneSelector({ value, onChange, panelId, label }: { value: number; onC
   </div>;
 }
 
-const loose = [[19, 29, -12], [50, 54, 9], [81, 32, 11], [21, 76, 8], [49, 22, -8], [79, 79, -9]];
+const loose = [[81, 32, 11], [21, 76, 8], [49, 22, -8], [79, 79, -9], [19, 29, -12], [50, 54, 9]];
 
 function MotionObject({ index, x, y, rotation = 0, children, className = "" }: { index: number; x: number; y: number; rotation?: number; children?: ReactNode; className?: string }) {
   const style = { "--qp-x": `${x}%`, "--qp-y": `${y}%`, "--qp-rotation": `${rotation}deg`, "--qp-delay": `${index * 35}ms` } as CSSProperties;
@@ -100,8 +101,8 @@ function ProcessVisual({ scene, solved }: { scene: number; solved: boolean }) {
       {item.key === "risk" && <>
         <div className="qp-visual-heading qp-after-only">Review before the decision</div>
         <svg className="qp-path qp-risk-path qp-after-only" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M 24 43 L 50 70 L 76 43" /></svg>
-        <MotionObject index={0} x={solved ? 24 : 28} y={solved ? 43 : 32} rotation={solved ? 0 : -9} className="qp-question"><span className="qp-question-mark">?</span><span>Book<br />profits?</span></MotionObject>
-        <MotionObject index={1} x={solved ? 76 : 69} y={solved ? 43 : 68} rotation={solved ? 0 : 10} className="qp-question"><span className="qp-question-mark">?</span><span>Capacity<br />for loss?</span></MotionObject>
+        <MotionObject index={0} x={solved ? 24 : 35} y={solved ? 43 : 31} rotation={solved ? 0 : -12} className="qp-question"><span className="qp-question-mark">?</span><span>Book<br />profits?</span></MotionObject>
+        <MotionObject index={1} x={solved ? 76 : 64} y={solved ? 43 : 68} rotation={solved ? 0 : 10} className="qp-question"><span className="qp-question-mark">?</span><span>Capacity<br />for loss?</span></MotionObject>
         <div className="qp-review-node qp-after-only"><Check size={18} /><span>Review fit</span></div>
         <div className="qp-visual-footnote">Rules inform. Your team assesses.</div>
       </>}
@@ -117,7 +118,7 @@ function ProcessVisual({ scene, solved }: { scene: number; solved: boolean }) {
         <div className="qp-visual-footnote">Ready for the conversation</div>
       </>}
       {item.key === "branding" && <>
-        {[0, 1, 2].map(i => <MotionObject key={i} index={i} x={18 + i * 32} y={solved ? 48 : i === 1 ? 59 : 42} rotation={solved ? 0 : [-8, 7, -5][i]} className={`qp-brand-paper qp-brand-paper-${i}`}>
+        {[0, 1, 2].map(i => <MotionObject key={i} index={i} x={solved ? 18 + i * 32 : [33, 51, 68][i]} y={solved ? 48 : [43, 61, 41][i]} rotation={solved ? 0 : [-12, 10, -8][i]} className={`qp-brand-paper qp-brand-paper-${i}`}>
           <span className="qp-brand-stripe" /><span className="qp-brand-name"><span className="qp-before-only">Report</span><span className="qp-after-only">Your firm</span></span><span className="qp-paper-lines"><i /><i /><i /></span><span className="qp-disclosure qp-after-only">Disclosure</span>
         </MotionObject>)}
         <div className="qp-visual-footnote">One considered identity</div>
@@ -128,63 +129,91 @@ function ProcessVisual({ scene, solved }: { scene: number; solved: boolean }) {
 
 export function ResearchComparison(props: ResearchSceneProps = {}) {
   const [selected, setSelected] = useScene(props);
-  const [resetting, setResetting] = useState(false);
+  const [request, setRequest] = useState(0);
+  const [phase, setPhase] = useState<"waiting" | "holding" | "moving" | "settled">("waiting");
+  const reduced = useReducedMotion();
   const workbench = useRef<HTMLDivElement>(null);
-  const frame = useRef<number | null>(null);
-  const visible = useRef(true);
+  const responseVisual = useRef<HTMLDivElement>(null);
   const panelId = useId();
   const item = scenes[selected];
   const TopicIcon = item.icon;
+  const visualPhase = reduced ? "settled" : phase;
+  const solved = visualPhase === "moving" || visualPhase === "settled";
 
   useEffect(() => {
-    const element = workbench.current;
+    const element = responseVisual.current;
     if (!element) return;
-    const settle = () => {
-      if (frame.current !== null) cancelAnimationFrame(frame.current);
-      frame.current = null;
-      setResetting(false);
+    const board = workbench.current;
+    let inView = false;
+    let started = false;
+    let finished = false;
+    let cancelled = false;
+    let holdTimer: number | undefined;
+    let finishTimer: number | undefined;
+    const clearTimers = () => {
+      window.clearTimeout(holdTimer);
+      window.clearTimeout(finishTimer);
+    };
+    const markVisibility = (active: boolean) => {
+      element.dataset.motion = active ? "on" : "off";
+      if (board) board.dataset.motion = active ? "on" : "off";
+    };
+    if (reduced) {
+      markVisibility(false);
+      return;
+    }
+    const update = () => {
+      if (cancelled) return;
+      const active = inView && !document.hidden;
+      markVisibility(active);
+      if (!active) {
+        clearTimers();
+        if (started && !finished) {
+          started = false;
+          setPhase("waiting");
+        }
+        return;
+      }
+      if (started || finished) return;
+      started = true;
+      setPhase("holding");
+      // Paint a readable starting state before moving these same objects.
+      holdTimer = window.setTimeout(() => {
+        if (cancelled || !inView || document.hidden) return;
+        setPhase("moving");
+        finishTimer = window.setTimeout(() => {
+          if (cancelled) return;
+          finished = true;
+          setPhase("settled");
+        }, 1700);
+      }, 450);
     };
     const observer = new IntersectionObserver(([entry]) => {
-      visible.current = entry.isIntersecting;
-      element.dataset.motion = entry.isIntersecting ? "on" : "off";
-      if (!entry.isIntersecting) settle();
-    }, { threshold: 0.08 });
+      inView = entry.isIntersecting && entry.intersectionRatio >= 0.55;
+      update();
+    }, { threshold: [0, 0.55] });
     observer.observe(element);
-    const onVisibility = () => {
-      element.dataset.motion = document.hidden || !visible.current ? "off" : "on";
-      if (document.hidden) settle();
-    };
-    document.addEventListener("visibilitychange", onVisibility);
+    document.addEventListener("visibilitychange", update);
     return () => {
+      cancelled = true;
+      clearTimers();
       observer.disconnect();
-      document.removeEventListener("visibilitychange", onVisibility);
-      if (frame.current !== null) cancelAnimationFrame(frame.current);
+      document.removeEventListener("visibilitychange", update);
     };
-  }, []);
+  }, [selected, request, reduced]);
 
   function chooseScene(index: number) {
-    if (frame.current !== null) cancelAnimationFrame(frame.current);
-    frame.current = null;
-    setResetting(false);
+    setPhase("waiting");
     setSelected(index);
+    setRequest(current => current + 1);
   }
 
   function replay() {
-    if (frame.current !== null) cancelAnimationFrame(frame.current);
-    if (!visible.current || document.hidden || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setResetting(false);
-      return;
-    }
-    setResetting(true);
-    frame.current = requestAnimationFrame(() => {
-      frame.current = requestAnimationFrame(() => {
-        setResetting(false);
-        frame.current = null;
-      });
-    });
+    setPhase("waiting");
+    setRequest(current => current + 1);
   }
 
-  return <section className="qp-section qp-comparison-section" id="why-quant-club" aria-labelledby={`${panelId}-heading`}>
+  return <section className="qp-section qp-comparison-section" id="why-quant-club" data-scene={item.key} aria-labelledby={`${panelId}-heading`}>
     <div className="tqc-container">
       <div className="qp-section-intro"><div><p className="tqc-eyebrow">THE PRACTICAL DIFFERENCE</p><h2 className="qp-section-heading" id={`${panelId}-heading`}>Rules for the strategy.<br />Order for the work.</h2></div><p>Bring structure to the decisions, tasks and documents your team handles every day.</p></div>
       <div className="qp-workbench" ref={workbench}>
@@ -197,11 +226,11 @@ export function ResearchComparison(props: ResearchSceneProps = {}) {
             <div className="qp-card-footer qp-challenge-outcome"><span className="qp-status-dot" /><p>{item.before}</p></div>
           </article>
           <span className="qp-connection" aria-hidden="true"><ArrowRight size={21} strokeWidth={1.6} /></span>
-          <article className={`qp-side qp-side-after${resetting ? " qp-replay-reset" : ""}`} aria-labelledby={`${panelId}-solution`}>
+          <article className="qp-side qp-side-after" aria-labelledby={`${panelId}-solution`}>
             <BrandBackdrop variant="signature" tone="dark" className="qp-brand-backdrop" />
             <div className="qp-card-header"><span className="qp-response-mark" aria-hidden="true"><QuantLogo compact inverse /></span><div><span className="qp-panel-label">With The Quant Club</span><span className="qp-pillar">{item.pillar}</span></div></div>
             <div className="qp-panel-copy"><h3 id={`${panelId}-solution`}>{item.solution}</h3><p>{item.answer}</p></div>
-            <ProcessVisual scene={selected} solved={!resetting} />
+            <div className="qp-response-visual" ref={responseVisual} data-phase={visualPhase}><ProcessVisual scene={selected} solved={solved} /></div>
             <div className="qp-card-footer qp-response-outcome"><div className="qp-outcome"><span><Check size={16} aria-hidden="true" /></span><p>{item.after}</p></div><button type="button" className="qp-replay" onClick={replay} aria-label={`Replay the change: ${item.label}`}><RotateCcw size={15} aria-hidden="true" />Replay</button></div>
           </article>
         </div>
