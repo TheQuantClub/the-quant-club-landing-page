@@ -1,22 +1,39 @@
-/* A recurring, recognisable identity rather than isolated decorative sections. */
+﻿/* The Q sits above three parallel currents, with no strokes through the mark. */
 .br-backdrop{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;isolation:isolate;contain:paint}
-.br-mark{position:absolute;width:340px;right:-56px;top:calc(50% - 175px);opacity:.075;transform:rotate(-12deg);animation:br-mark-drift 19s ease-in-out infinite alternate}
+.br-mark{position:absolute;top:1%;right:-2%;height:76%;max-height:460px;aspect-ratio:1;opacity:.075;animation:br-mark-drift 19s ease-in-out infinite alternate}
 .br-mark>.logo{width:100%;height:100%}
-.br-streams{position:absolute;inset:0;width:100%;height:100%;opacity:.65;overflow:visible}
+.br-streams{position:absolute;left:0;bottom:0;width:100%;height:18%;opacity:.65;overflow:hidden}
 .br-trace{opacity:.35;animation:br-current 18s linear infinite}
-.br-orbit-rings{position:absolute;width:400px;height:400px;right:-85px;top:calc(50% - 200px);border:1px solid #2165e811;border-radius:50%;transform:rotate(-28deg);opacity:.8}
-.br-orbit-rings>i{position:absolute;inset:13%;border:1px solid #2165e813;border-radius:50%}.br-orbit-rings>i+i{inset:0 31%}.br-orbit-rings>span{position:absolute;inset:0;border-radius:50%;animation:br-orbit-turn 32s linear infinite}.br-orbit-rings>span:after{content:"";position:absolute;width:6px;height:6px;left:50%;top:-3px;border-radius:50%;background:#2165e85c;box-shadow:0 0 0 5px #2165e809}
-.br-flow .br-mark{width:265px;right:5%;top:20%;opacity:.05}.br-flow .br-orbit-rings{display:none}.br-flow .br-streams{top:12%;height:110%;opacity:.8}
-.br-signature .br-mark{opacity:.105;width:370px;right:-72px}.br-signature .br-orbit-rings{opacity:.6}.br-signature .br-streams{opacity:.38;top:20%;height:90%}
-.br-dark .br-mark{opacity:.09}.br-dark .br-orbit-rings,.br-dark .br-orbit-rings>i{border-color:#7eb9ff22}.br-dark .br-orbit-rings>span:after{background:#8cdfff88;box-shadow:0 0 0 5px #8cdfff08}.br-dark .br-streams{opacity:.55}.br-dark .br-trace{opacity:.5}
+.br-flow .br-mark{height:66%;top:7%;right:5%;opacity:.05}
+.br-flow .br-streams{opacity:.8}
+.br-signature .br-mark{opacity:.105}
+.br-signature .br-streams{opacity:.38}
+.br-dark .br-mark{opacity:.09}
+.br-dark .br-streams{opacity:.55}
+.br-dark .br-trace{opacity:.5}
 .br-backdrop[data-paused=true] *,.br-backdrop[data-active=false] *{animation-play-state:paused!important}
-.br-motion-control{position:fixed;right:17px;bottom:16px;display:flex;align-items:center;gap:7px;z-index:35;padding:9px 12px;font-size:10px;line-height:1.4;background:#ffffffeb;backdrop-filter:blur(12px);border:1px solid #cbdbea;border-radius:24px;box-shadow:0 3px 16px #16365509;color:#476788}.br-motion-control:hover{color:#2165e8;border-color:#91b4e5}.br-motion-control[aria-pressed=true]{background:#edf4ff}
-.tqc-brand-section{position:relative;isolation:isolate;overflow:hidden}.tqc-brand-section>.tqc-container{position:relative;z-index:1}
-.tqc-closing>.br-backdrop{z-index:0}.tqc-closing .br-mark{width:480px;right:2%;top:calc(50% - 240px);opacity:.08}.tqc-closing .br-streams{opacity:.7}
-.tqc-bytes>.br-backdrop .br-mark{top:-105px;right:-130px;width:340px;opacity:.07}.tqc-bytes>.br-backdrop .br-streams{opacity:.4}
-.tqc-faq>.br-backdrop .br-mark{right:auto;left:-200px;top:calc(50% - 180px);width:370px;opacity:.055}.tqc-faq>.br-backdrop .br-orbit-rings{right:auto;left:-180px}.tqc-faq>.br-backdrop .br-streams{opacity:.2}
-@keyframes br-mark-drift{from{transform:translateY(7px) rotate(-12deg)}to{transform:translateY(-10px) rotate(-5deg)}}
+.br-motion-control{position:fixed;right:17px;bottom:16px;display:flex;align-items:center;gap:7px;z-index:35;padding:9px 12px;font-size:10px;line-height:1.4;background:#ffffffeb;backdrop-filter:blur(12px);border:1px solid #cbdbea;border-radius:24px;box-shadow:0 3px 16px #16365509;color:#476788}
+.br-motion-control:hover{color:#2165e8;border-color:#91b4e5}
+.br-motion-control[aria-pressed=true]{background:#edf4ff}
+.tqc-brand-section{position:relative;isolation:isolate;overflow:hidden}
+.tqc-brand-section>.tqc-container{position:relative;z-index:1}
+.tqc-closing>.br-backdrop{z-index:0}
+.tqc-closing .br-mark{right:2%;opacity:.1}
+.tqc-closing .br-streams{opacity:.7}
+.tqc-bytes>.br-backdrop .br-mark{right:-6%;opacity:.07}
+.tqc-bytes>.br-backdrop .br-streams{opacity:.4}
+.tqc-faq>.br-backdrop .br-mark{right:auto;left:-140px;opacity:.055}
+.tqc-faq>.br-backdrop .br-streams{opacity:.2}
+@keyframes br-mark-drift{from{transform:translateY(2px)}to{transform:translateY(-2px)}}
 @keyframes br-current{to{stroke-dashoffset:-1000}}
-@keyframes br-orbit-turn{to{transform:rotate(360deg)}}
-@media(max-width:700px){.br-mark,.br-signature .br-mark{width:245px;right:-100px;top:20%;opacity:.065}.br-flow .br-mark{right:-90px}.br-orbit-rings{width:300px;height:300px;right:-150px;top:calc(50% - 150px)}.br-streams{width:150%;left:-25%;opacity:.4}.br-motion-control{right:10px;bottom:11px;padding:10px}.br-motion-control>span{display:none}.tqc-closing .br-mark{right:-140px;top:40%;width:360px}.tqc-bytes>.br-backdrop .br-mark{right:-110px;width:230px;top:0}.tqc-faq>.br-backdrop .br-mark{left:-155px;width:270px}}
+@media(max-width:700px){
+  .br-mark,.br-signature .br-mark{right:-90px;max-height:310px;opacity:.065}
+  .br-flow .br-mark{right:-65px}
+  .br-streams{width:150%;left:-25%;opacity:.4}
+  .br-motion-control{right:10px;bottom:11px;padding:10px}
+  .br-motion-control>span{display:none}
+  .tqc-closing .br-mark{right:-65px}
+  .tqc-bytes>.br-backdrop .br-mark{right:-95px;max-height:260px}
+  .tqc-faq>.br-backdrop .br-mark{left:-160px}
+}
 @media(prefers-reduced-motion:reduce){.br-backdrop *{animation:none!important;transition:none!important}}

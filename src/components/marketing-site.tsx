@@ -29,21 +29,57 @@ function WalkthroughLink({ children = "Book a walkthrough", className = "tqc-but
   return <Link className={className} href={href}>{children}<ArrowUpRight size={17} aria-hidden="true" /></Link>;
 }
 
-function Brand() {
-  return <span className="mk-brand"><QuantLogo compact /><span>The Quant Club</span></span>;
+function Brand({ inverse = false }: { inverse?: boolean }) {
+  return <span className="mk-brand"><QuantLogo compact inverse={inverse} /><span>The Quant Club</span></span>;
 }
 
-function SiteShell({ children }: { children: ReactNode }) {
+function SiteShell({ children, page }: { children: ReactNode; page: SiteView }) {
   const pathname = usePathname();
+  const openingTone = page === "home" || page === "strategy" ? "dark" : "light";
+  const [headerState, setHeaderState] = useState<{ tone: "dark" | "light"; atTop: boolean }>({ tone: openingTone, atTop: true });
   const [menuOpen, setMenuOpen] = useState(false);
+  const headerBar = useRef<HTMLDivElement>(null);
+  const content = useRef<HTMLElement>(null);
   const loginDialog = useRef<HTMLDialogElement>(null);
   function memberAction() { setMenuOpen(false); loginDialog.current?.showModal(); }
 
-  return <div className="mk-site">
+  useEffect(() => {
+    const main = content.current;
+    const bar = headerBar.current;
+    if (!main || !bar) return;
+    let frame = 0;
+    const measure = () => {
+      frame = 0;
+      const sampleY = bar.getBoundingClientRect().height / 2;
+      const viewportWidth = document.documentElement.clientWidth;
+      const dark = Array.from(main.querySelectorAll<HTMLElement>(".tqc-hero--gradient, .mk-strategy-detail-hero, .tqc-closing")).some(section => {
+        const rect = section.getBoundingClientRect();
+        return rect.top <= sampleY && rect.bottom > sampleY && rect.left <= 8 && rect.right >= viewportWidth - 8;
+      });
+      const tone = dark ? "dark" : "light";
+      const atTop = window.scrollY <= 4;
+      setHeaderState(previous => previous.tone === tone && previous.atTop === atTop ? previous : { tone, atTop });
+    };
+    const schedule = () => { if (!frame) frame = window.requestAnimationFrame(measure); };
+    const resize = new ResizeObserver(schedule);
+    resize.observe(main);
+    resize.observe(bar);
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    schedule();
+    return () => {
+      window.cancelAnimationFrame(frame);
+      resize.disconnect();
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
+  }, [pathname]);
+
+  return <div className="mk-site" data-opening-tone={openingTone}>
     <a className="skip-link" href="#content">Skip to content</a>
-    <header className="mk-header">
-      <div className="tqc-container mk-header-inner">
-        <Link href="/" aria-label="The Quant Club home" onClick={() => setMenuOpen(false)}><Brand /></Link>
+    <header className="mk-header" data-tone={headerState.tone} data-at-top={headerState.atTop} data-menu-open={menuOpen}>
+      <div className="tqc-container mk-header-inner" ref={headerBar}>
+        <Link href="/" aria-label="The Quant Club home" onClick={() => setMenuOpen(false)}><Brand inverse={headerState.tone === "dark"} /></Link>
         <nav className="mk-nav" aria-label="Main navigation">{navigation.map(([label, href]) => <Link key={href} href={href} aria-current={pathname.startsWith(href) ? "page" : undefined}>{label}</Link>)}</nav>
         <div className="mk-header-actions">
           {memberLoginUrl ? <Link className="mk-login" href={memberLoginUrl}>Member login<LockKeyhole size={13} aria-hidden="true" /></Link> : <button type="button" className="mk-login" onClick={memberAction}>Member login<LockKeyhole size={13} aria-hidden="true" /></button>}
@@ -53,7 +89,7 @@ function SiteShell({ children }: { children: ReactNode }) {
       </div>
       {menuOpen && <nav className="mk-mobile-nav tqc-container" id="mk-mobile-navigation" aria-label="Mobile navigation" onKeyDown={event => { if (event.key === "Escape") setMenuOpen(false); }}>{navigation.map(([label, href]) => <Link key={href} href={href} onClick={() => setMenuOpen(false)} aria-current={pathname.startsWith(href) ? "page" : undefined}>{label}<ArrowUpRight size={17} aria-hidden="true" /></Link>)}<Link href={walkthroughUrl || "/walkthrough"} onClick={() => setMenuOpen(false)}>Book a walkthrough<ArrowUpRight size={17} aria-hidden="true" /></Link>{memberLoginUrl ? <Link href={memberLoginUrl} onClick={() => setMenuOpen(false)}>Member login<LockKeyhole size={15} aria-hidden="true" /></Link> : <button type="button" onClick={memberAction}>Member login<LockKeyhole size={15} aria-hidden="true" /></button>}</nav>}
     </header>
-    <main id="content">{children}</main>
+    <main id="content" ref={content}>{children}</main>
     <footer className="mk-footer mk-brand-surface"><BrandBackdrop variant="signature" className="mk-surface-backdrop mk-footer-backdrop" />
       <div className="tqc-container">
         <div className="mk-footer-top"><div><Link href="/" aria-label="The Quant Club home"><Brand /></Link><p>Research. Implementation. Ongoing discipline.<br />Built around your practice.</p></div><nav aria-label="Footer navigation">{navigation.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}</nav><div className="mk-footer-contact"><span>LET’S START A CONVERSATION</span><WalkthroughLink className="mk-footer-link">Bring us your workflow</WalkthroughLink>{contactEmail && <a href={`mailto:${contactEmail}`}>{contactEmail}</a>}<p>Your clients. Your brand.<br />A process you can stand behind.</p></div></div>
@@ -278,5 +314,5 @@ function Walkthrough() {
 }
 
 export function MarketingPage({ page, slug }: { page: SiteView; slug?: string }) {
-  return <SiteShell>{page === "home" ? <StrategyHome /> : page === "strategies" ? <Strategies /> : page === "strategy" ? <StrategyDetail slug={slug!} /> : page === "platform" ? <Platform /> : page === "research" ? <Research /> : page === "article" ? <ArticleDetail slug={slug!} /> : page === "about" ? <About /> : page === "institutions" ? <Institutions /> : <Walkthrough />}</SiteShell>;
+  return <SiteShell key={`${page}:${slug || ""}`} page={page}>{page === "home" ? <StrategyHome /> : page === "strategies" ? <Strategies /> : page === "strategy" ? <StrategyDetail slug={slug!} /> : page === "platform" ? <Platform /> : page === "research" ? <Research /> : page === "article" ? <ArticleDetail slug={slug!} /> : page === "about" ? <About /> : page === "institutions" ? <Institutions /> : <Walkthrough />}</SiteShell>;
 }

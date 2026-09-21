@@ -8,6 +8,7 @@ import "./kinetic-refresh.css";
 import "./audience-section.css";
 import "./brand-continuity.css";
 import "./hero-gradient.css";
+import "./adaptive-header.css";
 import { BrandMotionProvider } from "@/components/brand-backdrop";
 
 export const metadata: Metadata = {
