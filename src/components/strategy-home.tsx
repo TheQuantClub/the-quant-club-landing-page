@@ -2,18 +2,21 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { ArrowDown, ArrowRight, ArrowUpRight, Plus } from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUpRight, Pause, Play, Plus } from "lucide-react";
 import { articles, commonQuestions } from "@/lib/public-content";
 import { homeAudiences } from "@/lib/business-content";
 import { BusinessOrbit } from "./business-orbit";
-import { ResearchProblems, ResearchSolutions } from "./research-problems";
+import { ResearchComparison } from "./research-problems";
+import { FlowRibbons } from "./flow-ribbons";
+import { QuantGlobe } from "./quant-globe";
+import { useReducedMotion } from "@/lib/use-reduced-motion";
 
 export function StrategyCTA() {
   const destination = process.env.NEXT_PUBLIC_WALKTHROUGH_URL || "/walkthrough";
   return (
     <section className="tqc-closing" aria-labelledby="closing-title">
       <div className="tqc-container tqc-closing-inner">
-        <div><p className="tqc-eyebrow">BRING IT INTO YOUR PRACTICE</p><h2 id="closing-title">See where The Quant Club<br />fits into your firm.</h2><p>Walk through the research, deployment workflow, portfolio maintenance, and documents carrying your brand.</p></div>
+        <div><p className="tqc-eyebrow">BRING IT INTO YOUR PRACTICE</p><h2 id="closing-title">See where The Quant Club<br />fits into your firm.</h2><p>Explore model portfolios, the built-in analysis engine, implementation tools, and client documents that feel like you.</p></div>
         <Link className="tqc-button tqc-button-light" href={destination}>Book a walkthrough <ArrowUpRight size={19} /></Link>
       </div>
       <div className="tqc-closing-rings" aria-hidden="true"><i /><i /><i /></div>
@@ -63,21 +66,27 @@ export function HomeFAQ() {
 }
 
 export function StrategyHome() {
-  const [selectedScene, setSelectedScene] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const reduced = useReducedMotion();
   const destination = process.env.NEXT_PUBLIC_WALKTHROUGH_URL || "/walkthrough";
   return (
     <div className="tqc-home">
-      <section className="tqc-hero" aria-labelledby="hero-title"><div className="tqc-container">
-        <div className="tqc-hero-topline"><p className="tqc-eyebrow"><span /> FOR INVESTMENT ADVISERS & WEALTH TEAMS</p><span className="tqc-hero-edition">RESEARCH MEETS PRACTICE</span></div>
-        <h1 id="hero-title"><span>Let rules guide the strategy.</span><span>Let your brand lead<br className="tqc-hero-break" /> the relationship.</span></h1>
-        <div className="tqc-hero-bottom"><div><p className="tqc-hero-description">Quantitative research, strategy deployment, portfolio maintenance, and client reporting in your firm’s brand. Connected in one professional platform.</p><div className="tqc-hero-actions"><Link href={destination} className="tqc-button">Book a walkthrough <ArrowUpRight size={19} /></Link><Link href="/platform" className="tqc-text-link">Explore the platform <ArrowRight size={18} /></Link></div></div>
-          <div className="tqc-hero-signature" aria-hidden="true"><div className="tqc-signature-rings"><i /><i /><i /><b /></div><p>YOUR RESEARCH.<br />YOUR WORKFLOW.<br /><strong>YOUR BRAND.</strong></p></div>
+      <section className="tqc-hero tqc-hero--kinetic" aria-labelledby="hero-title">
+        <FlowRibbons paused={paused || reduced} />
+        <div className="tqc-container">
+          <div className="tqc-hero-stage">
+            <div className="tqc-hero-story"><p className="tqc-eyebrow"><span /> FOR INVESTMENT ADVISERS & WEALTH TEAMS</p>
+              <h1 id="hero-title"><span>Let rules guide<br />the strategy.</span><span>Let your brand lead<br />the relationship.</span></h1>
+              <p className="tqc-hero-description">Model portfolios, a built-in analysis engine, and tools for implementation and portfolio maintenance. All connected to the way you serve your clients.</p>
+              <div className="tqc-hero-actions"><Link href={destination} className="tqc-button">Book a walkthrough <ArrowUpRight size={19} /></Link><Link href="/platform" className="tqc-text-link">Explore the platform <ArrowRight size={18} /></Link></div>
+            </div>
+            <div className="tqc-hero-world"><QuantGlobe paused={paused || reduced} /><div className="tqc-world-caption"><span>A SYSTEMATIC PERSPECTIVE.</span>{!reduced && <button type="button" onClick={() => setPaused(!paused)} aria-label={paused ? "Play globe and flowing lines" : "Pause globe and flowing lines"}>{paused ? <Play size={13} /> : <Pause size={13} />}{paused ? "Play" : "Pause"}</button>}</div></div>
+          </div>
+          <div className="tqc-hero-baseline"><a className="tqc-scroll-cue" href="#what-we-do"><span>EXPLORE THE FULL PICTURE</span><ArrowDown size={17} /></a><p>Model portfolios. Your practice. <strong>Your identity.</strong></p></div>
         </div>
-        <a className="tqc-scroll-cue" href="#what-we-do"><span>THE FULL PICTURE</span><ArrowDown size={17} /></a>
-      </div></section>
+      </section>
       <BusinessOrbit />
-      <ResearchProblems selectedScene={selectedScene} onSceneChange={setSelectedScene} />
-      <ResearchSolutions selectedScene={selectedScene} onSceneChange={setSelectedScene} />
+      <ResearchComparison />
       <AudienceSection /><BytesSection /><HomeFAQ /><StrategyCTA />
     </div>
   );

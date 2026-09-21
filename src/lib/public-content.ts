@@ -30,7 +30,7 @@ export const publicStrategies = [
   {
     slug: "diversified-funds", name: "Diversified Mutual Fund Club", type: "Mutual funds", theme: "Diversified funds",
     universe: "Diversified mutual funds", title: "Quantitative research for diversified mutual funds.",
-    description: "A mutual fund strategy supported by research, deployment tools and branded reporting for your firm's fund offering.",
+    description: "A mutual fund strategy supported by research, implementation tools and reports carrying your firm's identity.",
     lens: "Explore the strategy within the platform and assess how it fits your firm's mutual fund offering.",
     shape: "funds",
   },
@@ -44,10 +44,10 @@ export const publicStrategies = [
 ];
 
 export const processSteps = [
-  { title: "Evaluate", subtitle: "Research for your investment process", body: "Review the research and analysis within the platform, then decide how a strategy fits your firm's mandate." },
-  { title: "Deploy", subtitle: "Prepare the work for your team", body: "Apply a strategy to relevant client records and prepare order files for your firm's execution process." },
-  { title: "Maintain", subtitle: "Follow the portfolio over time", body: "Record changes, monitor deviations and keep outstanding actions visible to the people responsible." },
-  { title: "Brand", subtitle: "Keep your firm in the client conversation", body: "Prepare factsheets and review material in your firm's branding, with the supporting information and required disclosures." },
+  { title: "Analysis engine", subtitle: "Evaluate model portfolios within the platform", body: "Use the built-in analysis engine to review historical behaviour, risk and supporting analysis, then assess the fit with your firm's mandate." },
+  { title: "Implementation", subtitle: "Prepare the instructions your team needs", body: "Apply a model portfolio to relevant client records and prepare order files for your firm's execution process." },
+  { title: "Maintenance", subtitle: "Follow the portfolio over time", body: "Record changes, monitor deviations and keep outstanding actions visible to the people responsible." },
+  { title: "Your brand", subtitle: "Your name belongs in the client conversation", body: "Give factsheets and review material your firm's logo, colours and identity, with the supporting information and required disclosures kept intact." },
 ];
 
 export type Article = {
@@ -66,12 +66,12 @@ export type Article = {
 export const articles: Article[] = [
   {
     slug: "the-process-behind-the-portfolio", category: "Investment practice",
-    title: "From research review to a working portfolio",
-    dek: "The hand-offs an investment team needs to make research useful in practice.",
+    title: "From a model portfolio to client instructions",
+    dek: "The hand-offs an investment team needs to put a model portfolio into practice.",
     art: "orbits", status: "draft",
     sections: [
-      { title: "Establish the purpose", paragraphs: ["Begin by recording the role a strategy is expected to play within the firm's mandate. Identify who reviews the research, who approves its use and which questions must be answered before a portfolio is implemented."] },
-      { title: "Prepare the implementation", paragraphs: ["A research decision needs an operational hand-off. The team carrying it out needs the relevant instructions, the accounts affected and a record of any exceptions. An order file is an input to that process; it is not evidence that the trades occurred."] },
+      { title: "Establish the purpose", paragraphs: ["Begin by recording the role a model portfolio is expected to play within the firm's mandate. Identify who evaluates the model and supporting analysis, who approves its use and which questions must be answered before implementation."] },
+      { title: "Prepare the implementation", paragraphs: ["An investment decision needs an operational hand-off. The team carrying it out needs the relevant client instructions, the accounts affected and a record of any exceptions. An order file is an input to that process; it is not evidence that the trades occurred."] },
       { title: "Close the loop", paragraphs: ["After implementation, compare the intended change with the recorded outcome. Keep partial execution, deliberate skips and outstanding actions visible. A useful research workflow continues beyond the initial decision and preserves the context needed for the next portfolio review."] },
     ],
   },
@@ -126,21 +126,22 @@ export const articles: Article[] = [
     art: "signal", status: "draft",
     sections: [
       { title: "Begin with the right record", paragraphs: ["A useful review starts with the correct account information and reporting period. Check that recent transactions and outstanding actions are reflected in the record before preparing the document. Clearly identify the date to which the information applies."] },
-      { title: "Keep the firm's voice consistent", paragraphs: ["Consistent branding helps a client recognise material from their firm. The document also needs clear labels, relevant context and the required disclosures. Presentation should make the information easier to understand without changing what it represents."] },
+      { title: "Make the document feel like your firm", paragraphs: ["Your client knows your name and trusts the relationship you have built. A factsheet or review document should carry that same identity, from your firm's logo and colours to its contact details. Keep the information clear and the required disclosures intact."] },
       { title: "Prepare for the conversation", paragraphs: ["Record the points the adviser needs to discuss and any follow-up work. A review document provides a common reference; the conversation gives the client an opportunity to ask questions. Keep the resulting actions connected to the account record so the next review can follow what happened."] },
     ],
   },
 ];
 
 export const commonQuestions = [
-  ["Who is The Quant Club built for?", "Investment advisers, mutual fund distributors, wealth management teams and investment institutions. We bring quantitative research, strategy deployment, portfolio maintenance and branded reporting into the firm's investment workflow."],
+  ["Who is The Quant Club built for?", "Investment advisers, mutual fund distributors, wealth management teams and investment institutions. We bring model portfolios, a built-in analysis engine, implementation support and portfolio maintenance into your workflow, with client reports in your firm's identity."],
+  ["Does the platform include an analysis engine?", "Yes. The built-in analysis engine lets your team evaluate model portfolios, review historical behaviour and risk, and examine supporting analysis within the member platform."],
   ["Which data sources do you use?", "Our research uses data from NSE, AMFI, Morningstar and other paid data tools."],
   ["Are your backtests and research data audited?", "All our backtests and research data are audited by a Chartered Accountant (CA) firm. The research data and supporting information are available within the platform."],
   ["How is your live data tracked?", "Our live data is tracked through PaRRVA. Live records are kept distinct from backtested research within the platform."],
   ["Where can I see model information and holdings?", "Model information, holdings, research data, backtests and strategy analytics are available within the SaaS platform, subject to your firm's access. The public website introduces the services and strategy range."],
   ["How often do strategies rebalance?", "Rebalance schedules vary by strategy. The relevant schedule and updates are provided within the platform so your team can plan and follow the required actions."],
-  ["Can the reports carry our firm's branding?", "Yes. Your firm can apply its logo, name, colours and contact details to factsheets and client review material. The research information and required disclosures remain part of the documents."],
+  ["Can the reports carry our firm's branding?", "Yes. Make factsheets and client review material feel like they came from you, with your firm's name, logo, colours and contact details. The research information and required disclosures remain intact."],
   ["Does the platform execute trades?", "The platform prepares model-level, client-specific and consolidated order files and supports execution records and follow-up. Your firm executes through its chosen broker or fund platform and records the outcome."],
   ["How does the platform support client management?", "Use client reference tags to organise strategy allocations, recorded holdings, investment flows and review activity. Your firm retains the client identity mapping and the client relationship."],
-  ["What happens in a walkthrough?", "We discuss your firm's investment workflow, relevant strategies, deployment needs and reporting requirements, then walk through how the platform can support your team."],
+  ["What happens in a walkthrough?", "We discuss your firm's investment workflow, model portfolios, analysis needs and implementation process. We also explore portfolio maintenance and client documents that carry your firm's name and identity."],
 ];

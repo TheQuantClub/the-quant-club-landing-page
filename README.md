@@ -4,9 +4,9 @@ A standalone Next.js marketing website for investment advisers, mutual fund dist
 
 ## Public experience
 
-- `/`: the chosen headline, an interactive six-part workflow, six visual problems and matching Before/After solutions, four audience workflows, The Quant Bytes, credibility FAQs and walkthrough links.
-- `/platform`: research, evaluation, deployment, maintenance, branding and communication. Each workflow stage supports direct hash links and keyboard navigation.
-- `/strategies` and `/strategies/[slug]`: filterable strategy categories and short public introductions. Model information stays within authorised SaaS access.
+- `/`: the chosen headline, rotating abstract globe, three flowing blue lines, six capabilities on a moving semicircle, compact problem/response comparisons, four audience workflows, The Quant Bytes, FAQs and walkthrough links.
+- `/platform`: Model portfolios, Analysis engine, Implementation, Maintenance, Your brand and Client communication. Each capability supports stable direct hash links and keyboard navigation.
+- `/strategies` and `/strategies/[slug]`: an interactive strategy gallery and distinct animated sculptures, with short public introductions. Model information stays within authorised SaaS access.
 - `/institutions`: four distinct workflows for advisers, mutual fund distributors, wealth teams and investment institutions.
 - `/research` and `/research/[slug]`: The Quant Bytes, with searchable educational drafts, category filters and reading pages.
 - `/about`: the firm's purpose, principles and data foundations.
@@ -14,7 +14,7 @@ A standalone Next.js marketing website for investment advisers, mutual fund dist
 
 The homepage headline is: “Let rules guide the strategy. Let your brand lead the relationship.”
 
-Rebalance timing is strategy-specific. Deployment means preparing instructions and order files; the professional firm carries out execution. The website does not imply automatic trading or promise investment outcomes.
+Rebalance timing is strategy-specific. Implementation means preparing instructions and order files; the professional firm carries out execution. The website does not imply automatic trading or promise investment outcomes. The platform includes a built-in analysis engine, as confirmed by the project owner.
 
 ## Run locally
 
@@ -66,10 +66,11 @@ Development and production servers use port 3001 by default. Local browser QA an
 
 - `src/components/marketing-site.tsx`: shared shell, secondary pages and enquiry flow.
 - `src/components/strategy-home.tsx`: homepage and shared closing section.
-- `src/components/business-orbit.tsx`: six-part workflow with offscreen pausing, manual selection and reduced-motion support.
-- `src/components/research-problems.tsx`: shared problem/solution scenes with matching animated objects.
+- `src/components/business-orbit.tsx`: a cropped rotating semicircle, manual selection, next/previous controls, offscreen pausing and reduced-motion support.
+- `src/components/quant-globe.tsx` and `flow-ribbons.tsx`: decorative globe and three blue lines with shared pause control, offscreen pausing and reduced-motion support.
+- `src/components/research-problems.tsx`: six compact problem/response pairs with matching objects and a replayable sorting transition.
 - `src/lib/business-content.ts`: offering and audience copy.
 - `src/lib/public-content.ts`: strategy overviews, educational drafts and FAQs.
-- `src/app/brand-refresh.css`, `marketing-refresh.css`, `research-problems.css`: current public-page styling, alongside base `globals.css`.
+- `src/app/brand-refresh.css`, `marketing-refresh.css`, `research-problems.css`, `kinetic-refresh.css` and `strategy-character-art.css`: current styling, alongside base `globals.css`.
 
 Earlier design components and styles remain as inactive source references. They are not imported by the active public-page tree. Existing strategy/article URLs are retained for compatibility.
