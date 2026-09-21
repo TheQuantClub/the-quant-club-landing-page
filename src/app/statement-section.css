@@ -1,9 +1,14 @@
 /* A quiet statement between the reasons to choose Quant Club and the audience workflows. */
-.tqc-conviction{padding:104px 0 110px;text-align:center}
-.tqc-conviction h2{max-width:990px;margin:0 auto;font-size:clamp(38px,4vw,56px);line-height:1.22;letter-spacing:-.04em;font-weight:500}
-.tqc-conviction h2>span{display:block}
-.tqc-conviction h2>span:first-child{color:#c3d7e6;max-width:930px;margin:0 auto}
-.tqc-conviction h2>span+span{margin-top:26px;color:#fff}
+.tqc-conviction{padding:80px 0 88px;text-align:center}
+.tqc-conviction h2{margin:0 auto;font-size:clamp(28px,3.2vw,44px);line-height:1.3;letter-spacing:-.035em;font-weight:500}
+.tqc-conviction h2>span{display:block;white-space:nowrap}
+.tqc-conviction h2>span:first-child{color:#c3d7e6;font-size:.84em;font-weight:400;letter-spacing:-.025em}
+.tqc-conviction h2>span+span{margin-top:14px;color:#fff}
 .tqc-conviction h2 em{font-style:normal;color:#a9dcff}
-@media(max-width:780px){.tqc-conviction{padding:76px 0 80px}.tqc-conviction h2{font-size:clamp(32px,5.2vw,40px);max-width:660px}.tqc-conviction h2>span+span{margin-top:23px}}
-@media(max-width:380px){.tqc-conviction{padding:64px 0 68px}.tqc-conviction h2{font-size:30px}}
+.tqc-conviction-term{white-space:nowrap}
+.tqc-conviction-link{margin-top:32px;min-height:52px;gap:32px;padding:14px 23px;box-shadow:0 5px 18px #06172919}
+.tqc-conviction-link:hover{background:#e6f4ff;border-color:#e6f4ff;box-shadow:0 7px 22px #06172926}
+.tqc-conviction-link:hover>svg{transform:translate(2px,-2px)}
+.tqc-conviction-link:focus-visible{outline:2px solid #a9dcff;outline-offset:5px}
+@media(max-width:780px){.tqc-conviction{padding:64px 0 68px}.tqc-conviction h2{font-size:clamp(30px,4.5vw,35px);max-width:620px}.tqc-conviction h2>span{white-space:normal;text-wrap:balance}.tqc-conviction h2>span+span{margin-top:16px}.tqc-conviction-link{margin-top:28px}}
+@media(prefers-reduced-motion:reduce){.tqc-conviction-link,.tqc-conviction-link>svg{transition:none}.tqc-conviction-link:hover>svg{transform:none}}

@@ -55,7 +55,8 @@ export function HomeFAQ() {
 function QuantStatement() {
   return <section className="tqc-conviction" aria-labelledby="conviction-title">
     <div className="tqc-container">
-      <h2 id="conviction-title"><span>We cannot tell you what happens next.</span><span>But our quant-led models <em>help you prepare for it.</em></span></h2>
+      <h2 id="conviction-title"><span>We cannot tell you what happens next.</span><span>But our <span className="tqc-conviction-term">quant-led</span> models <em>help you prepare for it.</em></span></h2>
+      <Link href="/strategies" className="tqc-button tqc-button-light tqc-conviction-link">Explore strategies <ArrowUpRight size={19} aria-hidden="true" /></Link>
     </div>
   </section>;
 }
